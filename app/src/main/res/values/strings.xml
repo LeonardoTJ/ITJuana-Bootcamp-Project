@@ -3,4 +3,9 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_search">Search</string>
+    <string name="title_pokedex">Pokedex</string>
+    <string name="title_discovery">Discovery</string>
+    <string name="text_search_prompt">What Pokemon are you looking for?</string>
+    <string name="pokemon_search_hint">Enter Pokemon name</string>
 </resources>
