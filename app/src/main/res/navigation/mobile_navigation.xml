@@ -16,12 +16,28 @@
         android:id="@+id/navigation_search"
         android:name="com.itjuana.pokedex.ui.search.SearchFragment"
         android:label="@string/title_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_navigation_search_to_pokemonDetailFragment"
+            app:destination="@id/pokemonDetailFragment" />
+        <argument
+            android:name="pokemon"
+            app:argType="com.itjuana.pokedex.data.local.model.Pokemon" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_discovery"
         android:name="com.itjuana.pokedex.ui.discovery.DiscoveryFragment"
         android:label="@string/title_discovery"
         tools:layout="@layout/fragment_discovery" />
+    <fragment
+        android:id="@+id/pokemonDetailFragment"
+        android:name="com.itjuana.pokedex.ui.detail.PokemonDetailFragment"
+        android:label="pokemon_detail_fragment"
+        tools:layout="@layout/pokemon_detail_fragment" >
+        <argument
+            android:name="pokemonArg"
+            app:argType="com.itjuana.pokedex.data.local.model.Pokemon" />
+    </fragment>
 
 </navigation>

@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import com.itjuana.pokedex.databinding.FragmentSearchBinding
 import kotlinx.coroutines.launch
 
@@ -23,8 +21,6 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        searchViewModel =
-//            ViewModelProvider(this).get(SearchViewModel::class.java)
         val factory = SearchViewModel.SearchViewModelFactory()
         searchViewModel = ViewModelProvider(this, factory).get(SearchViewModel::class.java)
 
@@ -47,6 +43,14 @@ class SearchFragment : Fragment() {
                     searchViewModel.getPokemonByNameOrId(searchQueryText.text.toString())
                 }
             }
+        }
+
+        val pokemonCard = binding.pokemonResultCard
+        pokemonCard.setOnClickListener {
+            val action =SearchFragmentDirections.actionNavigationSearchToPokemonDetailFragment(
+                searchViewModel.pokemon.value!!
+            )
+            NavHostFragment.findNavController(this).navigate(action)
         }
     }
 }

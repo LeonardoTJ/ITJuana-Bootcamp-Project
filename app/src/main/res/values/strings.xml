@@ -8,4 +8,8 @@
     <string name="title_discovery">Discovery</string>
     <string name="text_search_prompt">What Pokemon are you looking for?</string>
     <string name="pokemon_search_hint">Enter Pokemon name</string>
+    <string name="stats_title">STATS</string>
+    <string name="stat_hp">HP: %d</string>
+    <string name="stat_atk">ATTACK: %d</string>
+    <string name="stat_def">DEFENSE: %d</string>
 </resources>

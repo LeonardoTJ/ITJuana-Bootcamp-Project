@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.itjuana.pokedex.data.local.model.Pokemon
 import com.itjuana.pokedex.data.remote.RetrofitBuilder
-import com.itjuana.pokedex.data.remote.model.Pokemon
 import com.itjuana.pokedex.data.remote.repository.SearchPokemonRepository
 import com.itjuana.pokedex.data.remote.source.PokemonDataSource
 import com.itjuana.pokedex.util.Status
