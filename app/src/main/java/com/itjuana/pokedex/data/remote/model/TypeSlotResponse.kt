@@ -2,12 +2,12 @@ package com.itjuana.pokedex.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class TypeSlot(
+data class TypeSlotResponse(
     @SerializedName("type")
-    val type: Type
+    val typeResponse: TypeResponse
 )
 
-data class Type(
+data class TypeResponse(
     @SerializedName("name")
     val name: String,
     @SerializedName("url")

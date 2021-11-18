@@ -2,7 +2,7 @@ package com.itjuana.pokedex.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Pokemon(
+data class PokemonResponse(
     @SerializedName("id")
     val id: Int,
     @SerializedName("name")
@@ -12,9 +12,9 @@ data class Pokemon(
     @SerializedName("weight")
     val weight: Int,
     @SerializedName("sprites")
-    val sprites: Sprites,
+    val spritesResponse: SpritesResponse,
     @SerializedName("stats")
-    val stats: List<Stats>,
+    val stats: List<StatsResponse>,
     @SerializedName("types")
-    val typeSlots: List<TypeSlot>,
+    val typeSlotResponses: List<TypeSlotResponse>,
 )

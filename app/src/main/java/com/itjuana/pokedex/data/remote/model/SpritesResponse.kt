@@ -2,19 +2,19 @@ package com.itjuana.pokedex.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Sprites(
+data class SpritesResponse(
     @SerializedName("front_default")
     val spriteFrontDefaultUrl: String?,
     @SerializedName("other")
-    val otherSprites: OtherSprites?,
+    val otherSpritesResponse: OtherSpritesResponse?,
 )
 
-data class OtherSprites(
+data class OtherSpritesResponse(
     @SerializedName("official-artwork")
-    val officialArtwork: OfficialArtwork?,
+    val officialArtworkResponse: OfficialArtworkResponse?,
 )
 
-data class OfficialArtwork(
+data class OfficialArtworkResponse(
     @SerializedName("front_default")
     val officialArtworkFrontDefaultUrl: String?,
 )
