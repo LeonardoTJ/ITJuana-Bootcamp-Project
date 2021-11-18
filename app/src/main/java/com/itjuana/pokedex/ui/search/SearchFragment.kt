@@ -42,15 +42,15 @@ class SearchFragment : Fragment() {
                 viewLifecycleOwner.lifecycleScope.launch {
                     searchViewModel.getPokemonByNameOrId(searchQueryText.text.toString())
                 }
+
             }
         }
 
-        val pokemonCard = binding.pokemonResultCard
-        pokemonCard.setOnClickListener {
+        searchViewModel.pokemon.observe(viewLifecycleOwner, { pokemon ->
             val action =SearchFragmentDirections.actionNavigationSearchToPokemonDetailFragment(
-                searchViewModel.pokemon.value!!
+                pokemon!!
             )
             NavHostFragment.findNavController(this).navigate(action)
-        }
+        })
     }
 }

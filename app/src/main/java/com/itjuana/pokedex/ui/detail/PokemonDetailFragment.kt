@@ -19,6 +19,7 @@ class PokemonDetailFragment : Fragment() {
     ): View {
         queriedPokemon = arguments?.getSerializable("pokemonArg") as Pokemon
 
+        // Set data binding for Pokemon detail layout
         binding = PokemonDetailFragmentBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             pokemon = queriedPokemon

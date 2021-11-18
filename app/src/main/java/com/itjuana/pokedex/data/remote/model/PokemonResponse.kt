@@ -18,3 +18,13 @@ data class PokemonResponse(
     @SerializedName("types")
     val typeSlotResponses: List<TypeSlotResponse>,
 )
+
+data class PokemonListResponse(
+    @SerializedName("results")
+    val results:List<PokemonListResponseItem>
+)
+
+data class PokemonListResponseItem(
+    @SerializedName("name")
+    val name: String
+)

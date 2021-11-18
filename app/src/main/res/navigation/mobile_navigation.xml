@@ -29,7 +29,14 @@
         android:id="@+id/navigation_discovery"
         android:name="com.itjuana.pokedex.ui.discovery.DiscoveryFragment"
         android:label="@string/title_discovery"
-        tools:layout="@layout/fragment_discovery" />
+        tools:layout="@layout/fragment_discovery" >
+        <action
+            android:id="@+id/action_navigation_discovery_to_pokemonDetailFragment"
+            app:destination="@id/pokemonDetailFragment" />
+        <argument
+            android:name="pokemonArg"
+            app:argType="com.itjuana.pokedex.data.local.model.Pokemon" />
+    </fragment>
     <fragment
         android:id="@+id/pokemonDetailFragment"
         android:name="com.itjuana.pokedex.ui.detail.PokemonDetailFragment"

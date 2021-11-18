@@ -22,7 +22,7 @@ class SearchViewModel(private val searchPokemonRepository: SearchPokemonReposito
     suspend fun getPokemonByNameOrId(name: String) {
         _status.value = Status.LOADING
         try {
-            _pokemon.value = searchPokemonRepository.search(name)
+            _pokemon.value = searchPokemonRepository.searchPokemon(name)
             _status.value = Status.SUCCESS
         } catch (e: Exception) {
             _pokemon.value = null

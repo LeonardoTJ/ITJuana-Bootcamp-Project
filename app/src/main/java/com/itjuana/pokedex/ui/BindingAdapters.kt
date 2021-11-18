@@ -2,11 +2,15 @@ package com.itjuana.pokedex.ui
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.card.MaterialCardView
 import com.itjuana.pokedex.R
+import com.itjuana.pokedex.data.local.model.Pokemon
+import com.itjuana.pokedex.ui.discovery.DiscoveryAdapter
 import com.itjuana.pokedex.util.Status
 
 /**
@@ -23,19 +27,38 @@ fun bindSprite(imgView: ImageView, imgUrl: String?) {
 }
 
 /**
- * Show card view with pokemon data based on search status, via a mutable data in SearchViewModel
+ * Update RecyclerView
  */
-@BindingAdapter("pokemonSearchCard")
-fun bindResultCard(pokemonCard: MaterialCardView, status: Status?) {
-    when (status) {
-        Status.LOADING, Status.ERROR, Status.EMPTY -> {
-            pokemonCard.visibility = View.GONE
-        }
-        Status.SUCCESS -> {
-            pokemonCard.visibility = View.VISIBLE
-        }
+@BindingAdapter("pokemonList")
+fun bindPokemon(recyclerView: RecyclerView, pokemonList: List<Pokemon?>?) {
+    if (pokemonList != null) {
+        val adapter = recyclerView.adapter as DiscoveryAdapter
+        adapter.updateList(pokemonList)
     }
 }
+
+/**
+ * Set text
+ */
+//@BindingAdapter("android:text")
+//fun bindText(textView: TextView, string: String?) {
+//    textView.text = string
+//}
+
+/**
+ * Show card view with pokemon data based on search status, via a mutable data in SearchViewModel
+ */
+//@BindingAdapter("pokemonSearchCard")
+//fun bindResultCard(pokemonCard: MaterialCardView, status: Status?) {
+//    when (status) {
+//        Status.LOADING, Status.ERROR, Status.EMPTY -> {
+//            pokemonCard.visibility = View.GONE
+//        }
+//        Status.SUCCESS -> {
+//            pokemonCard.visibility = View.VISIBLE
+//        }
+//    }
+//}
 /**
  * Show placeholder image based on search status, via a mutable data in SearchViewModel
  */
