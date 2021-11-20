@@ -1,14 +1,17 @@
 package com.itjuana.pokedex.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI.navigateUp
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.itjuana.pokedex.PokemonApplication
 import com.itjuana.pokedex.R
 import com.itjuana.pokedex.data.domain.model.Pokemon
@@ -18,7 +21,7 @@ import com.itjuana.pokedex.ui.pokedex.PokedexViewModel
 import com.itjuana.pokedex.ui.pokedex.PokedexViewModelFactory
 import kotlinx.coroutines.launch
 
-class PokemonDetailFragment : Fragment() {
+class PokemonDetailFragment : BottomSheetDialogFragment() {
 
     private val pokedexViewModel: PokedexViewModel by activityViewModels {
         PokedexViewModelFactory(PokedexDataSource((activity?.application as PokemonApplication).database.pokemonDao()))
@@ -31,6 +34,7 @@ class PokemonDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        (activity as AppCompatActivity).supportActionBar?.hide()
         queriedPokemon = arguments?.getSerializable("pokemonArg") as Pokemon
 
         // Set data binding for Pokemon detail layout
@@ -45,38 +49,44 @@ class PokemonDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("DetailFragment", "onViewCreated called")
         viewLifecycleOwner.lifecycleScope.launch {
             if (pokedexViewModel.isInDatabase(queriedPokemon.id)) {
-                binding.pokedexButton.setImageResource(R.drawable.ic_delete_pokemon)
-                binding.pokedexButton.setOnClickListener {
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        pokedexViewModel.deletePokemon(queriedPokemon)
-                    }
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.pokedex_deleted_message, queriedPokemon.name),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val action = PokemonDetailFragmentDirections.actionPokemonDetailFragmentPop()
-                    findNavController().navigate(action)
-                }
+                setPokedexButton(
+                    R.drawable.ic_delete_pokemon,
+                    getString(R.string.pokedex_deleted_message, queriedPokemon.name)
+                )
             } else {
-                binding.pokedexButton.setImageResource(R.drawable.ic_add_pokemon)
-                binding.pokedexButton.setOnClickListener {
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        pokedexViewModel.addPokemon(queriedPokemon)
-                    }
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.pokedex_added_message, queriedPokemon.name),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    val action = PokemonDetailFragmentDirections.actionPokemonDetailFragmentPop()
-                    findNavController().navigate(action)
-                }
+                setPokedexButton(
+                    R.drawable.ic_add_pokemon,
+                    getString(R.string.pokedex_added_message, queriedPokemon.name)
+                )
             }
         }
 
+        binding.closeButton.setOnClickListener {
+            val action = PokemonDetailFragmentDirections.actionPokemonDetailFragmentPop()
+            findNavController().navigate(action)
+        }
+    }
 
+    private fun setPokedexButton(iconId: Int, toastMessage: String) {
+        binding.pokedexButton.setImageResource(iconId)
+        binding.pokedexButton.setOnClickListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                if (iconId == R.drawable.ic_delete_pokemon) {
+                    pokedexViewModel.deletePokemon(queriedPokemon)
+                } else {
+                    pokedexViewModel.addPokemon(queriedPokemon)
+                }
+            }
+            Toast.makeText(
+                requireContext(),
+                toastMessage,
+                Toast.LENGTH_SHORT
+            ).show()
+            val action = PokemonDetailFragmentDirections.actionPokemonDetailFragmentPop()
+            findNavController().navigate(action)
+        }
     }
 }
