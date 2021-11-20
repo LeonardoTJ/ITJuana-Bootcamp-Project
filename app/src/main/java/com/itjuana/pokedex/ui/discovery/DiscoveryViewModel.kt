@@ -4,13 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.itjuana.pokedex.data.local.model.Pokemon
+import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.RetrofitBuilder
-import com.itjuana.pokedex.data.remote.repository.SearchPokemonRepository
-import com.itjuana.pokedex.data.remote.source.PokemonDataSource
+import com.itjuana.pokedex.data.repository.SearchPokemonRepository
+import com.itjuana.pokedex.data.remote.source.PokeApiDataSource
 import com.itjuana.pokedex.util.ApiUtils
 import com.itjuana.pokedex.util.Status
-import kotlin.random.Random
 
 class DiscoveryViewModel(private val searchPokemonRepository: SearchPokemonRepository) :
     ViewModel() {
@@ -39,13 +38,13 @@ class DiscoveryViewModel(private val searchPokemonRepository: SearchPokemonRepos
     }
 
     /**
-     *  Factory method for Pokemon discovery viewModel
+     *  Factory class for obtaining a lifecycle-aware viewModel
      */
     class PokemonDiscoveryFactory: ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DiscoveryViewModel::class.java)){
                 return DiscoveryViewModel(
-                    searchPokemonRepository = PokemonDataSource(RetrofitBuilder.instance)
+                    searchPokemonRepository = PokeApiDataSource(RetrofitBuilder.instance)
                 ) as T
             }
             throw java.lang.Exception("No class type supported")

@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.itjuana.pokedex.databinding.FragmentSearchBinding
 import kotlinx.coroutines.launch
+import java.util.*
 
 class SearchFragment : Fragment() {
 
@@ -37,20 +40,28 @@ class SearchFragment : Fragment() {
 
         val searchQueryText = binding.pokemonSearchEditText
         val searchButton = binding.pokemonSearchSubmit
-        searchButton.setOnClickListener {
-            if (!searchQueryText.text.isNullOrEmpty()) {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    searchViewModel.getPokemonByNameOrId(searchQueryText.text.toString())
-                }
 
+        searchButton.setOnClickListener {
+            // Check for empty input or containing whitespace
+            val queryText = searchQueryText.text.toString()
+            if (queryText.isNotBlank()) {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    searchViewModel.getPokemonByNameOrId(
+                        queryText.lowercase(Locale.getDefault())
+                    )
+                }
+            } else {
+                Toast.makeText(requireContext(), "Invalid input", Toast.LENGTH_SHORT).show()
             }
         }
 
         searchViewModel.pokemon.observe(viewLifecycleOwner, { pokemon ->
-            val action =SearchFragmentDirections.actionNavigationSearchToPokemonDetailFragment(
-                pokemon!!
-            )
-            NavHostFragment.findNavController(this).navigate(action)
+            if (pokemon != null) {
+                val action = SearchFragmentDirections.actionNavigationSearchToPokemonDetailFragment(
+                    pokemon
+                )
+                findNavController().navigate(action)
+            }
         })
     }
 }

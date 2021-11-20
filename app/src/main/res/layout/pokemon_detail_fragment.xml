@@ -6,7 +6,7 @@
     <data>
         <variable
             name="pokemon"
-            type="com.itjuana.pokedex.data.local.model.Pokemon" />
+            type="com.itjuana.pokedex.data.domain.model.Pokemon" />
     </data>
 
     <ScrollView
@@ -17,6 +17,16 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/pokedex_button"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="24dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/pokemon_name"
+                app:layout_constraintBottom_toBottomOf="@id/pokemon_type"/>
 
             <TextView
                 android:id="@+id/pokemon_name"

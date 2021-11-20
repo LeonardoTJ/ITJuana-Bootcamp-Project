@@ -2,15 +2,13 @@ package com.itjuana.pokedex.ui
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.google.android.material.card.MaterialCardView
 import com.itjuana.pokedex.R
-import com.itjuana.pokedex.data.local.model.Pokemon
-import com.itjuana.pokedex.ui.discovery.DiscoveryAdapter
+import com.itjuana.pokedex.data.domain.model.Pokemon
+import com.itjuana.pokedex.ui.utils.PokemonAdapter
 import com.itjuana.pokedex.util.Status
 
 /**
@@ -32,7 +30,7 @@ fun bindSprite(imgView: ImageView, imgUrl: String?) {
 @BindingAdapter("pokemonList")
 fun bindPokemon(recyclerView: RecyclerView, pokemonList: List<Pokemon?>?) {
     if (pokemonList != null) {
-        val adapter = recyclerView.adapter as DiscoveryAdapter
+        val adapter = recyclerView.adapter as PokemonAdapter
         adapter.updateList(pokemonList)
     }
 }

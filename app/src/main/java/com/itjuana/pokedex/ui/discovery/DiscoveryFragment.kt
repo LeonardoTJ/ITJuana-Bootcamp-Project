@@ -9,11 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.itjuana.pokedex.data.local.model.Pokemon
+import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.databinding.FragmentDiscoveryBinding
+import com.itjuana.pokedex.ui.utils.PokemonAdapter
+import com.itjuana.pokedex.ui.utils.PokemonListCallback
 import kotlinx.coroutines.launch
 
-class DiscoveryFragment : Fragment(), DiscoveryListCallback {
+class DiscoveryFragment : Fragment(), PokemonListCallback {
 
     private lateinit var discoveryViewModel: DiscoveryViewModel
     private lateinit var binding: FragmentDiscoveryBinding
@@ -40,14 +42,15 @@ class DiscoveryFragment : Fragment(), DiscoveryListCallback {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = binding.discoveryRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = DiscoveryAdapter(this)
+        recyclerView.adapter = PokemonAdapter(this)
 
+        // Populate viewModel with random pokemon
         viewLifecycleOwner.lifecycleScope.launch {
             discoveryViewModel.getDiscoveryPokemon()
         }
-
+        // Observe pokemon list for updates
         discoveryViewModel.pokemonList.observe(viewLifecycleOwner, { pokemonList ->
-            (recyclerView.adapter as DiscoveryAdapter).updateList(pokemonList)
+            (recyclerView.adapter as PokemonAdapter).updateList(pokemonList)
         })
     }
 

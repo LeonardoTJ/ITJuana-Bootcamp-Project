@@ -1,22 +1,22 @@
 package com.itjuana.pokedex.data.remote.source
 
-import com.itjuana.pokedex.data.local.model.Pokemon
+import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.PokemonApi
 import com.itjuana.pokedex.data.remote.model.Stat
-import com.itjuana.pokedex.data.remote.repository.SearchPokemonRepository
+import com.itjuana.pokedex.data.repository.SearchPokemonRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 
-class PokemonDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepository {
+class PokeApiDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepository {
 
     /**
-     * Query Pokemon endpoint with provided name or ID
+     * Query Pokemon endpoint with provided name
      * Returns Pokemon model object
      */
-    override suspend fun searchPokemon(name: String): Pokemon {
-        val pokemon = pokemonApi.getPokemonByNameOrId(name)
+    override suspend fun searchPokemonByName(name: String): Pokemon? {
+        val pokemon = pokemonApi.getPokemonByName(name)
         return Pokemon(
             id = pokemon.id,
             name = pokemon.name,
@@ -26,7 +26,27 @@ class PokemonDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepos
                 ?: pokemon.spritesResponse.spriteFrontDefaultUrl,
             hp = pokemon.stats[Stat.HP.ordinal].baseStat,
             attack = pokemon.stats[Stat.ATTACK.ordinal].baseStat,
-            defense = pokemon.stats[Stat.DEFENSE.ordinal].baseStat,
+            defense = pokemon.stats[Stat.DEFENSE.ordinal].baseStat
+//            typeSlotResponses = pokemon.typeSlotResponses
+        )
+    }
+
+    /**
+     * Query Pokemon endpoint with provided ID
+     * Returns Pokemon model object
+     */
+    override suspend fun searchPokemonById(id: Int): Pokemon? {
+        val pokemon = pokemonApi.getPokemonById(id)
+        return Pokemon(
+            id = pokemon.id,
+            name = pokemon.name,
+            height = pokemon.height,
+            weight = pokemon.weight,
+            spriteUrl = pokemon.spritesResponse.otherSpritesResponse?.officialArtworkResponse?.officialArtworkFrontDefaultUrl
+                ?: pokemon.spritesResponse.spriteFrontDefaultUrl,
+            hp = pokemon.stats[Stat.HP.ordinal].baseStat,
+            attack = pokemon.stats[Stat.ATTACK.ordinal].baseStat,
+            defense = pokemon.stats[Stat.DEFENSE.ordinal].baseStat
 //            typeSlotResponses = pokemon.typeSlotResponses
         )
     }
@@ -40,9 +60,10 @@ class PokemonDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepos
 
         withContext(Dispatchers.IO) {
             idList.map { pokemonId ->
-                async { pokemonApi.getPokemonByNameOrId(pokemonId.toString()) }
+                async { pokemonApi.getPokemonByName(pokemonId.toString()) }
             }.awaitAll().map { pokemon ->
-                pokemonList.add(Pokemon(
+                pokemonList.add(
+                    Pokemon(
                     id = pokemon.id,
                     name = pokemon.name,
                     height = pokemon.height,
@@ -52,7 +73,8 @@ class PokemonDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepos
                     hp = pokemon.stats[Stat.HP.ordinal].baseStat,
                     attack = pokemon.stats[Stat.ATTACK.ordinal].baseStat,
                     defense = pokemon.stats[Stat.DEFENSE.ordinal].baseStat,
-                ))
+                )
+                )
             }
         }
         return pokemonList

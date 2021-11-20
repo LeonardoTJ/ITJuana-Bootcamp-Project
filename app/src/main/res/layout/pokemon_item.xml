@@ -7,7 +7,7 @@
 
         <variable
             name="pokemon"
-            type="com.itjuana.pokedex.data.local.model.Pokemon" />
+            type="com.itjuana.pokedex.data.domain.model.Pokemon" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

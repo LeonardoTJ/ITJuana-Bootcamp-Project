@@ -1,13 +1,12 @@
-package com.itjuana.pokedex.ui.discovery
+package com.itjuana.pokedex.ui.utils
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.itjuana.pokedex.data.local.model.Pokemon
+import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.databinding.PokemonItemBinding
 
-class DiscoveryAdapter(private val callback: DiscoveryListCallback) : RecyclerView.Adapter<DiscoveryAdapter.PokemonViewHolder>() {
+class PokemonAdapter(private val callback: PokemonListCallback) : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
     private var pokemonList: List<Pokemon?> = emptyList()
 
     /**
@@ -16,7 +15,7 @@ class DiscoveryAdapter(private val callback: DiscoveryListCallback) : RecyclerVi
      */
     class PokemonViewHolder(
         private var binding: PokemonItemBinding,
-        private val callback: DiscoveryListCallback
+        private val callback: PokemonListCallback
     ): RecyclerView.ViewHolder(binding.root) {
 
         init {

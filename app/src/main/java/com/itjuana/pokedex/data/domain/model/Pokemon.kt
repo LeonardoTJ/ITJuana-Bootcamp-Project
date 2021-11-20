@@ -1,5 +1,6 @@
-package com.itjuana.pokedex.data.local.model
+package com.itjuana.pokedex.data.domain.model
 
+import com.itjuana.pokedex.data.local.model.PokemonEntity
 import java.io.Serializable
 
 data class Pokemon(
@@ -12,3 +13,14 @@ data class Pokemon(
     val attack: Int,
     val defense: Int
 ) : Serializable
+
+fun Pokemon.toEntity() = PokemonEntity(
+    id,
+    name,
+    height,
+    weight,
+    spriteUrl,
+    hp,
+    attack,
+    defense
+)

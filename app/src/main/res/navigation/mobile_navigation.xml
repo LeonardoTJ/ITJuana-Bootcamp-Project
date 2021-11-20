@@ -10,7 +10,15 @@
         android:id="@+id/navigation_pokedex"
         android:name="com.itjuana.pokedex.ui.pokedex.PokedexFragment"
         android:label="@string/title_pokedex"
-        tools:layout="@layout/fragment_pokedex" />
+        tools:layout="@layout/fragment_pokedex" >
+        <action
+            android:id="@+id/action_navigation_pokedex_to_pokemonDetailFragment"
+            app:destination="@id/pokemonDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <argument
+            android:name="pokemonArg"
+            app:argType="com.itjuana.pokedex.data.domain.model.Pokemon" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search"
@@ -19,10 +27,11 @@
         tools:layout="@layout/fragment_search" >
         <action
             android:id="@+id/action_navigation_search_to_pokemonDetailFragment"
-            app:destination="@id/pokemonDetailFragment" />
+            app:destination="@id/pokemonDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
         <argument
-            android:name="pokemon"
-            app:argType="com.itjuana.pokedex.data.local.model.Pokemon" />
+            android:name="pokemonArg"
+            app:argType="com.itjuana.pokedex.data.domain.model.Pokemon" />
     </fragment>
 
     <fragment
@@ -32,19 +41,36 @@
         tools:layout="@layout/fragment_discovery" >
         <action
             android:id="@+id/action_navigation_discovery_to_pokemonDetailFragment"
-            app:destination="@id/pokemonDetailFragment" />
+            app:destination="@id/pokemonDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
         <argument
             android:name="pokemonArg"
-            app:argType="com.itjuana.pokedex.data.local.model.Pokemon" />
+            app:argType="com.itjuana.pokedex.data.domain.model.Pokemon" />
     </fragment>
     <fragment
         android:id="@+id/pokemonDetailFragment"
         android:name="com.itjuana.pokedex.ui.detail.PokemonDetailFragment"
-        android:label="pokemon_detail_fragment"
+        android:label="Pokemon Details"
         tools:layout="@layout/pokemon_detail_fragment" >
         <argument
             android:name="pokemonArg"
-            app:argType="com.itjuana.pokedex.data.local.model.Pokemon" />
+            app:argType="com.itjuana.pokedex.data.domain.model.Pokemon" />
+        <action
+            android:id="@+id/action_pokemonDetailFragment_to_navigation_pokedex"
+            app:destination="@id/navigation_pokedex"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_pokemonDetailFragment_to_navigation_search"
+            app:destination="@id/navigation_search"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_pokemonDetailFragment_to_navigation_discovery"
+            app:destination="@id/navigation_discovery"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_pokemonDetailFragment_pop"
+            app:popUpTo="@id/pokemonDetailFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

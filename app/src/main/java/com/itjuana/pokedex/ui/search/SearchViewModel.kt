@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.itjuana.pokedex.data.local.model.Pokemon
+import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.RetrofitBuilder
-import com.itjuana.pokedex.data.remote.repository.SearchPokemonRepository
-import com.itjuana.pokedex.data.remote.source.PokemonDataSource
+import com.itjuana.pokedex.data.repository.SearchPokemonRepository
+import com.itjuana.pokedex.data.remote.source.PokeApiDataSource
 import com.itjuana.pokedex.util.Status
 
 class SearchViewModel(private val searchPokemonRepository: SearchPokemonRepository) : ViewModel() {
@@ -22,7 +22,7 @@ class SearchViewModel(private val searchPokemonRepository: SearchPokemonReposito
     suspend fun getPokemonByNameOrId(name: String) {
         _status.value = Status.LOADING
         try {
-            _pokemon.value = searchPokemonRepository.searchPokemon(name)
+            _pokemon.value = searchPokemonRepository.searchPokemonByName(name)
             _status.value = Status.SUCCESS
         } catch (e: Exception) {
             _pokemon.value = null
@@ -38,7 +38,7 @@ class SearchViewModel(private val searchPokemonRepository: SearchPokemonReposito
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
                 return SearchViewModel(
-                    searchPokemonRepository = PokemonDataSource(RetrofitBuilder.instance)
+                    searchPokemonRepository = PokeApiDataSource(RetrofitBuilder.instance)
                 ) as T
             }
 

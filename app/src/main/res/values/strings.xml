@@ -12,4 +12,7 @@
     <string name="stat_hp">HP: %d</string>
     <string name="stat_atk">ATTACK: %d</string>
     <string name="stat_def">DEFENSE: %d</string>
+    <string name="add_pokedex">Pokedex</string>
+    <string name="pokedex_deleted_message">%s deleted from your Pokedex!</string>
+    <string name="pokedex_added_message">%s added to your Pokedex!</string>
 </resources>

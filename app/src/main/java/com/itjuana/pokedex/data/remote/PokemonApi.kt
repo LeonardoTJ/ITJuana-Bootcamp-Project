@@ -9,10 +9,16 @@ import retrofit2.http.Query
 
 interface PokemonApi {
     /**
-     * Get a Pokemon from its name or ID
+     * Get a Pokemon from its name
      */
     @GET("pokemon/{name}")
-    suspend fun getPokemonByNameOrId(@Path("name") name: String): PokemonResponse
+    suspend fun getPokemonByName(@Path("name") name: String): PokemonResponse
+
+    /**
+     * Get a Pokemon from its ID
+     */
+    @GET("pokemon/{id}")
+    suspend fun getPokemonById(@Path("id") id: Int): PokemonResponse
 
     /**
      * Get a list of contiguous Pokemon starting at a specified ID offset
