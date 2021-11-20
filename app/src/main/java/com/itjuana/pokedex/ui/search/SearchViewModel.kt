@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.RetrofitBuilder
-import com.itjuana.pokedex.data.repository.SearchPokemonRepository
 import com.itjuana.pokedex.data.remote.source.PokeApiDataSource
+import com.itjuana.pokedex.data.repository.SearchPokemonRepository
 import com.itjuana.pokedex.util.Status
 
 class SearchViewModel(private val searchPokemonRepository: SearchPokemonRepository) : ViewModel() {
@@ -15,6 +15,7 @@ class SearchViewModel(private val searchPokemonRepository: SearchPokemonReposito
     // Status of current request
     private val _status = MutableLiveData<Status>(Status.EMPTY)
     var status: LiveData<Status> = _status
+
     // Pokemon info
     private val _pokemon = MutableLiveData<Pokemon?>()
     var pokemon: LiveData<Pokemon?> = _pokemon

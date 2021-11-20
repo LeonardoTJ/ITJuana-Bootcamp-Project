@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.RetrofitBuilder
-import com.itjuana.pokedex.data.repository.SearchPokemonRepository
 import com.itjuana.pokedex.data.remote.source.PokeApiDataSource
+import com.itjuana.pokedex.data.repository.SearchPokemonRepository
 import com.itjuana.pokedex.util.ApiUtils
 import com.itjuana.pokedex.util.Status
 
@@ -28,7 +28,8 @@ class DiscoveryViewModel(private val searchPokemonRepository: SearchPokemonRepos
     suspend fun getDiscoveryPokemon() {
         _status.value = Status.LOADING
         try {
-            _pokemonList.value = searchPokemonRepository.getPokemonList(ApiUtils.getRandomPokemonIdList())
+            _pokemonList.value =
+                searchPokemonRepository.getPokemonList(ApiUtils.getRandomPokemonIdList())
             _status.value = Status.SUCCESS
         } catch (e: Exception) {
             _pokemonList.value = listOf()
@@ -40,9 +41,9 @@ class DiscoveryViewModel(private val searchPokemonRepository: SearchPokemonRepos
     /**
      *  Factory class for obtaining a lifecycle-aware viewModel
      */
-    class PokemonDiscoveryFactory: ViewModelProvider.Factory {
+    class PokemonDiscoveryFactory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(DiscoveryViewModel::class.java)){
+            if (modelClass.isAssignableFrom(DiscoveryViewModel::class.java)) {
                 return DiscoveryViewModel(
                     searchPokemonRepository = PokeApiDataSource(RetrofitBuilder.instance)
                 ) as T

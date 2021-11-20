@@ -2,7 +2,9 @@ package com.itjuana.pokedex.data.remote.source
 
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.PokemonApi
+import com.itjuana.pokedex.data.remote.model.PokemonResponse
 import com.itjuana.pokedex.data.remote.model.Stat
+import com.itjuana.pokedex.data.remote.model.Type
 import com.itjuana.pokedex.data.repository.SearchPokemonRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -16,19 +18,8 @@ class PokeApiDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepos
      * Returns Pokemon model object
      */
     override suspend fun searchPokemonByName(name: String): Pokemon? {
-        val pokemon = pokemonApi.getPokemonByName(name)
-        return Pokemon(
-            id = pokemon.id,
-            name = pokemon.name,
-            height = pokemon.height,
-            weight = pokemon.weight,
-            spriteUrl = pokemon.spritesResponse.otherSpritesResponse?.officialArtworkResponse?.officialArtworkFrontDefaultUrl
-                ?: pokemon.spritesResponse.spriteFrontDefaultUrl,
-            hp = pokemon.stats[Stat.HP.ordinal].baseStat,
-            attack = pokemon.stats[Stat.ATTACK.ordinal].baseStat,
-            defense = pokemon.stats[Stat.DEFENSE.ordinal].baseStat
-//            typeSlotResponses = pokemon.typeSlotResponses
-        )
+        val pokemonResponse = pokemonApi.getPokemonByName(name)
+        return buildPokemon(pokemonResponse)
     }
 
     /**
@@ -36,19 +27,8 @@ class PokeApiDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepos
      * Returns Pokemon model object
      */
     override suspend fun searchPokemonById(id: Int): Pokemon? {
-        val pokemon = pokemonApi.getPokemonById(id)
-        return Pokemon(
-            id = pokemon.id,
-            name = pokemon.name,
-            height = pokemon.height,
-            weight = pokemon.weight,
-            spriteUrl = pokemon.spritesResponse.otherSpritesResponse?.officialArtworkResponse?.officialArtworkFrontDefaultUrl
-                ?: pokemon.spritesResponse.spriteFrontDefaultUrl,
-            hp = pokemon.stats[Stat.HP.ordinal].baseStat,
-            attack = pokemon.stats[Stat.ATTACK.ordinal].baseStat,
-            defense = pokemon.stats[Stat.DEFENSE.ordinal].baseStat
-//            typeSlotResponses = pokemon.typeSlotResponses
-        )
+        val pokemonResponse = pokemonApi.getPokemonById(id)
+        return buildPokemon(pokemonResponse)
     }
 
     /**
@@ -62,21 +42,77 @@ class PokeApiDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepos
             idList.map { pokemonId ->
                 async { pokemonApi.getPokemonByName(pokemonId.toString()) }
             }.awaitAll().map { pokemon ->
-                pokemonList.add(
-                    Pokemon(
-                    id = pokemon.id,
-                    name = pokemon.name,
-                    height = pokemon.height,
-                    weight = pokemon.weight,
-                    spriteUrl = pokemon.spritesResponse.otherSpritesResponse?.officialArtworkResponse?.officialArtworkFrontDefaultUrl
-                        ?: pokemon.spritesResponse.spriteFrontDefaultUrl,
-                    hp = pokemon.stats[Stat.HP.ordinal].baseStat,
-                    attack = pokemon.stats[Stat.ATTACK.ordinal].baseStat,
-                    defense = pokemon.stats[Stat.DEFENSE.ordinal].baseStat,
-                )
-                )
+                pokemonList.add(buildPokemon(pokemon))
             }
         }
         return pokemonList
+    }
+
+    private suspend fun buildPokemon(pokemonResponse: PokemonResponse): Pokemon {
+
+        // Take first Pokemon type from URL
+        val type = getTypeIdFromUrl(pokemonResponse.typeUrlSlotRespons[0].typeUrlSlot.url)
+        // Get battle damage info from Pokemon type
+        val damageRelationResponse = withContext(Dispatchers.IO) {
+            async { pokemonApi.getType(type.id).damageRelation }
+        }.await()
+
+        return Pokemon(
+            id = pokemonResponse.id,
+            name = validateName(pokemonResponse.name),
+            height = "${pokemonResponse.height / 10.0}m",
+            weight = "${pokemonResponse.weight / 10.0}kg",
+            spriteUrl = pokemonResponse.spritesResponse.otherSpritesResponse?.officialArtworkResponse?.officialArtworkFrontDefaultUrl,
+            hp = pokemonResponse.stats[Stat.HP.ordinal].baseStat,
+            attack = pokemonResponse.stats[Stat.ATTACK.ordinal].baseStat,
+            defense = pokemonResponse.stats[Stat.DEFENSE.ordinal].baseStat,
+            spAttack = pokemonResponse.stats[Stat.SP_ATTACK.ordinal].baseStat,
+            spDefense = pokemonResponse.stats[Stat.SP_DEFENSE.ordinal].baseStat,
+            speed = pokemonResponse.stats[Stat.SPEED.ordinal].baseStat,
+            type = type,
+            doubleDamageFrom = damageRelationResponse.doubleDamageFrom.map { typeSlot ->
+                getTypeIdFromUrl(
+                    typeSlot.url
+                )
+            },
+            doubleDamageTo = damageRelationResponse.doubleDamageTo.map { typeSlot ->
+                getTypeIdFromUrl(
+                    typeSlot.url
+                )
+            },
+            halfDamageFrom = damageRelationResponse.halfDamageFrom.map { typeSlot ->
+                getTypeIdFromUrl(
+                    typeSlot.url
+                )
+            },
+            halfDamageTo = damageRelationResponse.halfDamageTo.map { typeSlot ->
+                getTypeIdFromUrl(
+                    typeSlot.url
+                )
+            },
+            noDamageFrom = damageRelationResponse.noDamageFrom.map { typeSlot ->
+                getTypeIdFromUrl(
+                    typeSlot.url
+                )
+            },
+            noDamageTo = damageRelationResponse.noDamageTo.map { typeSlot ->
+                getTypeIdFromUrl(
+                    typeSlot.url
+                )
+            }
+        )
+    }
+
+    private fun validateName(name: String): String {
+        val newName = name.replaceFirstChar { it.uppercase() }
+        if (newName.contains('-')) {
+            return newName.split('-')[0]
+        }
+        return newName
+    }
+
+    private fun getTypeIdFromUrl(url: String): Type {
+        val typeUrl = url.split('/')
+        return Type.fromInt(typeUrl[typeUrl.size - 2].toInt())
     }
 }

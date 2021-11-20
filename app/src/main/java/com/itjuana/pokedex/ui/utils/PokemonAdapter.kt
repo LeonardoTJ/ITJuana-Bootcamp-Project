@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.databinding.PokemonItemBinding
 
-class PokemonAdapter(private val callback: PokemonListCallback) : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
+class PokemonAdapter(private val callback: PokemonListCallback) :
+    RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
     private var pokemonList: List<Pokemon?> = emptyList()
 
     /**
@@ -16,7 +17,7 @@ class PokemonAdapter(private val callback: PokemonListCallback) : RecyclerView.A
     class PokemonViewHolder(
         private var binding: PokemonItemBinding,
         private val callback: PokemonListCallback
-    ): RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {

@@ -1,7 +1,6 @@
 package com.itjuana.pokedex.data.local.db
 
 import android.content.Context
-import androidx.room.Database
 import androidx.room.Room
 
 class DatabaseManager {
@@ -20,10 +19,10 @@ class DatabaseManager {
         fun initializeDatabase(context: Context): PokedexDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        PokedexDatabase::class.java,
-                        "pokemon_db"
-                    )
+                    context.applicationContext,
+                    PokedexDatabase::class.java,
+                    "pokemon_db"
+                )
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

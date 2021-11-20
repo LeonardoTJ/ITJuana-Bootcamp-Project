@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
-import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -70,7 +68,8 @@ class PokedexFragment : Fragment(), PokemonListCallback {
     }
 
     override fun onClick(pokemon: Pokemon) {
-        val action = PokedexFragmentDirections.actionNavigationPokedexToPokemonDetailFragment(pokemon)
+        val action =
+            PokedexFragmentDirections.actionNavigationPokedexToPokemonDetailFragment(pokemon)
         findNavController().navigate(action)
     }
 

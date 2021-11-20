@@ -55,7 +55,8 @@ class DiscoveryFragment : Fragment(), PokemonListCallback {
     }
 
     override fun onClick(pokemon: Pokemon) {
-        val action = DiscoveryFragmentDirections.actionNavigationDiscoveryToPokemonDetailFragment(pokemon)
+        val action =
+            DiscoveryFragmentDirections.actionNavigationDiscoveryToPokemonDetailFragment(pokemon)
         findNavController().navigate(action)
     }
 }

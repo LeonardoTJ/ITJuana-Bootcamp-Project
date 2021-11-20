@@ -16,12 +16,12 @@ data class PokemonResponse(
     @SerializedName("stats")
     val stats: List<StatsResponse>,
     @SerializedName("types")
-    val typeSlotResponses: List<TypeSlotResponse>,
+    val typeUrlSlotRespons: List<TypeUrlSlotResponse>,
 )
 
 data class PokemonListResponse(
     @SerializedName("results")
-    val results:List<PokemonListResponseItem>
+    val results: List<PokemonListResponseItem>
 )
 
 data class PokemonListResponseItem(

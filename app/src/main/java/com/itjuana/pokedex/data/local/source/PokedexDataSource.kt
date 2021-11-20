@@ -5,11 +5,8 @@ import com.itjuana.pokedex.data.domain.model.toEntity
 import com.itjuana.pokedex.data.local.db.PokedexDao
 import com.itjuana.pokedex.data.local.model.toPokemon
 import com.itjuana.pokedex.data.repository.PokedexRepository
-import com.itjuana.pokedex.data.repository.SearchPokemonRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
-class PokedexDataSource(private val pokedexDao: PokedexDao): PokedexRepository {
+class PokedexDataSource(private val pokedexDao: PokedexDao) : PokedexRepository {
 
     /**
      * Query Pokedex database for a list of all saved Pokemon model objects

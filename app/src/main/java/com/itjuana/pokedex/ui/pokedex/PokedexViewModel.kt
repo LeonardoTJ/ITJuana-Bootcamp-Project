@@ -3,11 +3,9 @@ package com.itjuana.pokedex.ui.pokedex
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.local.source.PokedexDataSource
 import com.itjuana.pokedex.data.repository.PokedexRepository
-import kotlinx.coroutines.launch
 
 class PokedexViewModel(private val pokedexRepository: PokedexRepository) : ViewModel() {
 
