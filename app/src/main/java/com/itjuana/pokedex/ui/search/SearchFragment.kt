@@ -16,7 +16,7 @@ import com.itjuana.pokedex.databinding.FragmentSearchBinding
 import com.itjuana.pokedex.ui.utils.PokemonAdapter
 import com.itjuana.pokedex.ui.utils.PokemonListItemCallback
 import com.itjuana.pokedex.ui.utils.PokemonListUpdate
-import com.itjuana.pokedex.util.ApiUtils
+import com.itjuana.pokedex.data.remote.ApiUtils
 import kotlinx.coroutines.launch
 import java.util.*
 

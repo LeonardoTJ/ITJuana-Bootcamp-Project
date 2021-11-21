@@ -5,7 +5,7 @@ import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.RetrofitBuilder
 import com.itjuana.pokedex.data.remote.source.PokeApiDataSource
 import com.itjuana.pokedex.data.repository.SearchPokemonRepository
-import com.itjuana.pokedex.util.Status
+import com.itjuana.pokedex.ui.utils.Status
 import retrofit2.HttpException
 
 class SearchViewModel(

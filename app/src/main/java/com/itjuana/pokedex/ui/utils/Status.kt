@@ -1,4 +1,4 @@
-package com.itjuana.pokedex.util
+package com.itjuana.pokedex.ui.utils
 
 enum class Status {
     SUCCESS,

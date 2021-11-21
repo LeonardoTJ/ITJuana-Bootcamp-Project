@@ -12,7 +12,7 @@ import com.itjuana.pokedex.R
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.model.Type
 import com.itjuana.pokedex.ui.utils.PokemonListUpdate
-import com.itjuana.pokedex.util.Status
+import com.itjuana.pokedex.ui.utils.Status
 
 /**
  * Bind pokemon sprite to imageView

@@ -14,7 +14,7 @@ import com.itjuana.pokedex.databinding.FragmentDiscoveryBinding
 import com.itjuana.pokedex.ui.utils.PokemonAdapter
 import com.itjuana.pokedex.ui.utils.PokemonListItemCallback
 import com.itjuana.pokedex.ui.utils.PokemonListUpdate
-import com.itjuana.pokedex.util.Status
+import com.itjuana.pokedex.ui.utils.Status
 import kotlinx.coroutines.launch
 
 class DiscoveryFragment : Fragment(), PokemonListItemCallback {

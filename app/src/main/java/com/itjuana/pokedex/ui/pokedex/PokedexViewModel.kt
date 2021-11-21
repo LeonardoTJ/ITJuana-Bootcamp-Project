@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.local.source.PokedexDataSource
 import com.itjuana.pokedex.data.repository.PokedexRepository
-import com.itjuana.pokedex.util.Status
+import com.itjuana.pokedex.ui.utils.Status
 
 class PokedexViewModel(private val pokedexRepository: PokedexRepository) : ViewModel() {
 
