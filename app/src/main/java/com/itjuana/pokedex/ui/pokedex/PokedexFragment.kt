@@ -17,7 +17,9 @@ import com.itjuana.pokedex.R
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.local.source.PokedexDataSource
 import com.itjuana.pokedex.databinding.FragmentPokedexBinding
+import com.itjuana.pokedex.ui.utils.PokemonAdapter
 import com.itjuana.pokedex.ui.utils.PokemonListItemCallback
+import com.itjuana.pokedex.ui.utils.PokemonListUpdate
 import kotlinx.coroutines.launch
 
 class PokedexFragment : Fragment(), PokemonListItemCallback {
@@ -39,7 +41,7 @@ class PokedexFragment : Fragment(), PokemonListItemCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = PokedexAdapter(this)
+        val adapter = PokemonAdapter(this)
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.adapter = adapter
@@ -51,17 +53,20 @@ class PokedexFragment : Fragment(), PokemonListItemCallback {
 
         // Observe pokemon list for updates
         pokedexViewModel.pokemonList.observe(this.viewLifecycleOwner, { pokemonList ->
-            (recyclerView.adapter as PokedexAdapter).updateList(pokemonList)
+            (recyclerView.adapter as PokemonListUpdate).updateList(pokemonList)
         })
 
-        // Observe picked pokemon
+        // Observe Pokemon selection mode for damage comparison
+        // Show selected Pokemon at the bottom and hide search bar, and vice versa
         pokedexViewModel.defenderSelectMode.observe(this.viewLifecycleOwner, { selectMode ->
             if (selectMode) {
                 binding.pokemon = pokedexViewModel.attackerPokemon.value
                 binding.standardBottomSheet.visibility = View.VISIBLE
+                binding.topSearchBar.visibility = View.GONE
             } else {
                 binding.pokemon = null
                 binding.standardBottomSheet.visibility = View.GONE
+                binding.topSearchBar.visibility = View.VISIBLE
             }
         })
 
