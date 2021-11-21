@@ -82,11 +82,12 @@
             android:layout_marginTop="68dp"
             android:layout_marginBottom="?attr/actionBarSize"
             android:orientation="vertical"
+            android:alpha="0.50"
             app:pokemonSearchNoResults="@{viewModel.status}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/pokemon_search_submit"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/status_image"
