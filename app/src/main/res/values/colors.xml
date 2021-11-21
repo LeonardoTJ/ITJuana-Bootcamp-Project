@@ -9,4 +9,44 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark">#142F43</color>
     <color name="light_beige">#F6EABE</color>
+
+    <color name="type_normal">#A8A77A</color>
+    <color name="type_fighting">#C22E28</color>
+    <color name="type_flying">#A98FF3</color>
+    <color name="type_poison">#A33EA1</color>
+    <color name="type_ground">#DDBB55</color>
+    <color name="type_rock">#B6A136</color>
+    <color name="type_bug">#A6B91A</color>
+    <color name="type_ghost">#735797</color>
+    <color name="type_steel">#B7B7CE</color>
+    <color name="type_fire">#EE8130</color>
+    <color name="type_water">#6390F0</color>
+    <color name="type_grass">#7AC74C</color>
+    <color name="type_electric">#F7D02C</color>
+    <color name="type_psychic">#A98FF3</color>
+    <color name="type_ice">#96D9D6</color>
+    <color name="type_dragon">#6F35FC</color>
+    <color name="type_dark">#705746</color>
+    <color name="type_fairy">#D685AD</color>
+
+    <array name="pokemon_types">
+        <item>@color/type_normal</item>
+        <item>@color/type_fighting</item>
+        <item>@color/type_flying</item>
+        <item>@color/type_poison</item>
+        <item>@color/type_ground</item>
+        <item>@color/type_rock</item>
+        <item>@color/type_bug</item>
+        <item>@color/type_ghost</item>
+        <item>@color/type_steel</item>
+        <item>@color/type_fire</item>
+        <item>@color/type_water</item>
+        <item>@color/type_grass</item>
+        <item>@color/type_electric</item>
+        <item>@color/type_psychic</item>
+        <item>@color/type_ice</item>
+        <item>@color/type_dragon</item>
+        <item>@color/type_dark</item>
+        <item>@color/type_fairy</item>
+    </array>
 </resources>

@@ -9,6 +9,12 @@ import com.itjuana.pokedex.data.repository.PokedexRepository
 
 class PokedexViewModel(private val pokedexRepository: PokedexRepository) : ViewModel() {
 
+    private var _selectedPokemon = MutableLiveData<List<Pokemon>>()
+    val selectedPokemon: MutableLiveData<List<Pokemon>> = _selectedPokemon
+
+    private var _multiSelectEnabled = MutableLiveData(false)
+    val multiSelectEnabled: MutableLiveData<Boolean> = _multiSelectEnabled
+
     private var _pokemonList = MutableLiveData<List<Pokemon>>()
     val pokemonList: MutableLiveData<List<Pokemon>> = _pokemonList
 

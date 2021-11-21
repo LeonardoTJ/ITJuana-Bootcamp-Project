@@ -4,70 +4,110 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="pokemon"
             type="com.itjuana.pokedex.data.domain.model.Pokemon" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/pokemon_result_card"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pokemon_result_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:padding="8dp">
+        android:elevation="8dp"
+        app:pokemonItemBackgroundColor="@{pokemon.type}"
+        tools:backgroundTint="@color/type_grass">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/background_image"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginBottom="-10dp"
+            android:adjustViewBounds="true"
+            android:alpha="0.40"
+            android:background="@drawable/pokeball"
+            android:rotation="-20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <ImageView
-                android:id="@+id/pokemon_sprite"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:spriteUrl="@{pokemon.spriteUrl}"
-                tools:src="@drawable/ic_pokedex" />
+        <CheckBox
+            android:id="@+id/selected_checkbox"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:checked="false"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/pokemon_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@{pokemon.name}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/pokemon_sprite"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Bulbasaur" />
+        <ImageView
+            android:id="@+id/pokemon_sprite"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginVertical="8dp"
+            android:layout_marginStart="64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:spriteUrl="@{pokemon.spriteUrl}"
+            tools:src="@drawable/ic_pokedex" />
 
-            <TextView
-                android:id="@+id/pokemon_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@{String.valueOf(pokemon.id)}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/pokemon_sprite"
-                app:layout_constraintTop_toBottomOf="@id/pokemon_name"
-                tools:text="23" />
+        <TextView
+            android:id="@+id/pokemon_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowRadius="5"
+            android:text="@{String.valueOf(pokemon.id)}"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="@id/pokemon_sprite"
+            app:layout_constraintStart_toEndOf="@id/pokemon_sprite"
+            tools:text="23" />
 
-            <!--                <TextView-->
-            <!--                    android:id="@+id/pokemon_type"-->
-            <!--                    android:layout_width="0dp"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:layout_marginStart="8dp"-->
-            <!--                    android:text="@{viewModel.pokemon.typeSlotResponses[0].type.name}"-->
-            <!--                    tools:text="Grass"-->
-            <!--                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"-->
-            <!--                    app:layout_constraintTop_toBottomOf="@id/pokemon_id"-->
-            <!--                    app:layout_constraintStart_toEndOf="@id/pokemon_sprite"-->
-            <!--                    app:layout_constraintEnd_toEndOf="parent"/>-->
+        <TextView
+            android:id="@+id/pokemon_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="48dp"
+            android:gravity="center"
+            android:shadowColor="@color/black"
+            android:shadowRadius="5"
+            android:text="@{pokemon.name}"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/pokemon_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Bulbasaur" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/pokemon_type"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/pokemon_type_label"
+            android:backgroundTintMode="screen"
+            android:gravity="center"
+            android:paddingHorizontal="2dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/pokemon_name"
+            app:layout_constraintEnd_toEndOf="@id/pokemon_name"
+            app:layout_constraintTop_toBottomOf="@id/pokemon_name"
+            app:pokemonItemBackgroundColor="@{pokemon.type}"
+            app:pokemonTypeText="@{pokemon.type}"
+            tools:backgroundTint="@color/type_grass"
+            tools:text="GRASS" />
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

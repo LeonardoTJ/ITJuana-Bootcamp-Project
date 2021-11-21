@@ -1,13 +1,14 @@
-package com.itjuana.pokedex.ui.utils
+package com.itjuana.pokedex.ui.pokedex
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.databinding.PokemonItemBinding
+import com.itjuana.pokedex.ui.utils.PokemonListItemCallback
 
-class PokemonAdapter(private val callback: PokemonListItemCallback) :
-    RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
+class PokedexAdapter(private val callback: PokemonListItemCallback) :
+    RecyclerView.Adapter<PokedexAdapter.PokemonViewHolder>() {
     private var pokemonList: List<Pokemon?> = emptyList()
 
     /**

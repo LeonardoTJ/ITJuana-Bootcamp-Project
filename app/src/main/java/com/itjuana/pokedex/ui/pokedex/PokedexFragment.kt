@@ -10,15 +10,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.itjuana.pokedex.PokemonApplication
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.local.source.PokedexDataSource
 import com.itjuana.pokedex.databinding.FragmentPokedexBinding
-import com.itjuana.pokedex.ui.utils.PokemonAdapter
-import com.itjuana.pokedex.ui.utils.PokemonListCallback
+import com.itjuana.pokedex.ui.utils.PokemonListItemCallback
 import kotlinx.coroutines.launch
 
-class PokedexFragment : Fragment(), PokemonListCallback {
+class PokedexFragment : Fragment(), PokemonListItemCallback {
 
     private val pokedexViewModel: PokedexViewModel by activityViewModels {
         PokedexViewModelFactory(PokedexDataSource((activity?.application as PokemonApplication).database.pokemonDao()))
@@ -37,7 +37,7 @@ class PokedexFragment : Fragment(), PokemonListCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = PokemonAdapter(this)
+        val adapter = PokedexAdapter(this)
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.adapter = adapter
@@ -48,7 +48,7 @@ class PokedexFragment : Fragment(), PokemonListCallback {
         }
         // Observe pokemon list for updates
         pokedexViewModel.pokemonList.observe(this.viewLifecycleOwner, { pokemonList ->
-            (recyclerView.adapter as PokemonAdapter).updateList(pokemonList)
+            (recyclerView.adapter as PokedexAdapter).updateList(pokemonList)
         })
         // Update pokemon list as the user types a pokemon name
         // If query is blank, show all pokemon in database
@@ -68,9 +68,20 @@ class PokedexFragment : Fragment(), PokemonListCallback {
     }
 
     override fun onClick(pokemon: Pokemon) {
-        val action =
-            PokedexFragmentDirections.actionNavigationPokedexToPokemonDetailFragment(pokemon)
-        findNavController().navigate(action)
+        MaterialAlertDialogBuilder(requireContext())
+            .setCancelable(true)
+            .setNegativeButton("Cancel") { _, _ ->
+
+            }
+            .setNeutralButton("Calculator") { _, _ ->
+
+            }
+            .setNeutralButton("Details") { _, _ ->
+                val action =
+                    PokedexFragmentDirections.actionNavigationPokedexToPokemonDetailFragment(pokemon)
+                findNavController().navigate(action)
+            }
+            .create().show()
     }
 
 }

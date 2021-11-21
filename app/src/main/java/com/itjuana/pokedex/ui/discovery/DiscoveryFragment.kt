@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.databinding.FragmentDiscoveryBinding
 import com.itjuana.pokedex.ui.utils.PokemonAdapter
-import com.itjuana.pokedex.ui.utils.PokemonListCallback
+import com.itjuana.pokedex.ui.utils.PokemonListItemCallback
 import kotlinx.coroutines.launch
 
-class DiscoveryFragment : Fragment(), PokemonListCallback {
+class DiscoveryFragment : Fragment(), PokemonListItemCallback {
 
     private lateinit var discoveryViewModel: DiscoveryViewModel
     private lateinit var binding: FragmentDiscoveryBinding
