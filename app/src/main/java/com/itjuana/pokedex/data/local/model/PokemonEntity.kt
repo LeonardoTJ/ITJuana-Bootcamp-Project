@@ -13,8 +13,12 @@ data class PokemonEntity(
     val name: String,
     val height: String,
     val weight: String,
-    @ColumnInfo(name = "sprite_url")
-    val spriteUrl: String?,
+    @ColumnInfo(name = "front_sprite")
+    val frontSprite: String,
+    @ColumnInfo(name = "back_sprite")
+    val backSprite: String,
+    @ColumnInfo(name = "official_artwork")
+    val officialArtwork: String?,
     val hp: Int,
     val attack: Int,
     val defense: Int,
@@ -37,7 +41,9 @@ fun PokemonEntity.toPokemon() = Pokemon(
     name,
     height,
     weight,
-    spriteUrl,
+    frontSprite,
+    backSprite,
+    officialArtwork,
     hp,
     attack,
     defense,

@@ -9,7 +9,7 @@ interface PokedexDao {
     suspend fun insertPokemon(pokemon: PokemonEntity)
 
     @Query("SELECT * FROM pokemon ORDER BY name ASC")
-    suspend fun getAllPokemon(): List<PokemonEntity>?
+    suspend fun getAllPokemon(): List<PokemonEntity>
 
     @Query("SELECT * FROM pokemon WHERE name LIKE '%' || :name || '%'")
     suspend fun getAllPokemonByName(name: String): List<PokemonEntity>?

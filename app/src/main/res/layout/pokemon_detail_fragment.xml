@@ -100,13 +100,13 @@
             <ImageView
                 android:id="@+id/pokemon_sprite"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="180dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pokemon_type"
-                app:spriteUrl="@{pokemon.spriteUrl}"
+                app:spriteUrl="@{pokemon.officialArtwork}"
                 tools:src="@drawable/bulbasaur" />
 
             <TextView

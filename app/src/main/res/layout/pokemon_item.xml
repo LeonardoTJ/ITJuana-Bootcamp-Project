@@ -51,7 +51,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spriteUrl="@{pokemon.spriteUrl}"
+            app:spriteUrl="@{pokemon.officialArtwork}"
             tools:src="@drawable/ic_pokedex" />
 
         <TextView

@@ -4,7 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class SpritesResponse(
     @SerializedName("front_default")
-    val spriteFrontDefaultUrl: String?,
+    val spriteFrontDefaultUrl: String,
+    @SerializedName("back_default")
+    val spriteBackDefaultUrl: String,
     @SerializedName("other")
     val otherSpritesResponse: OtherSpritesResponse?,
 )

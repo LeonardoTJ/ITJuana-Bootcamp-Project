@@ -52,7 +52,7 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_margin="24dp"
-                app:spriteUrl="@{attackerPokemon.spriteUrl}"
+                app:spriteUrl="@{attackerPokemon.backSprite}"
                 tools:src="@drawable/bulbasaur"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/attacker_pokemon_name" />
@@ -121,7 +121,7 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_margin="24dp"
-                app:spriteUrl="@{defenderPokemon.spriteUrl}"
+                app:spriteUrl="@{defenderPokemon.frontSprite}"
                 tools:src="@drawable/bulbasaur"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/defender_pokemon_name" />

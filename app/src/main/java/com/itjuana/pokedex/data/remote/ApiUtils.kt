@@ -1,5 +1,6 @@
-package com.itjuana.pokedex.util
+package com.itjuana.pokedex.data.remote
 
+import com.itjuana.pokedex.data.remote.model.Type
 import kotlin.random.Random
 
 object ApiUtils {
@@ -36,5 +37,10 @@ object ApiUtils {
             return newName.split('-')[0]
         }
         return newName
+    }
+
+    fun getTypeIdFromUrl(url: String): Type {
+        val typeUrl = url.split('/')
+        return Type.fromInt(typeUrl[typeUrl.size - 2].toInt())
     }
 }
