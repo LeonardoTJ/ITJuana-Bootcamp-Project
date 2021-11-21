@@ -13,6 +13,7 @@ import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.databinding.FragmentDiscoveryBinding
 import com.itjuana.pokedex.ui.utils.PokemonAdapter
 import com.itjuana.pokedex.ui.utils.PokemonListItemCallback
+import com.itjuana.pokedex.ui.utils.PokemonListUpdate
 import kotlinx.coroutines.launch
 
 class DiscoveryFragment : Fragment(), PokemonListItemCallback {
@@ -50,7 +51,7 @@ class DiscoveryFragment : Fragment(), PokemonListItemCallback {
         }
         // Observe pokemon list for updates
         discoveryViewModel.pokemonList.observe(viewLifecycleOwner, { pokemonList ->
-            (recyclerView.adapter as PokemonAdapter).updateList(pokemonList)
+            (recyclerView.adapter as PokemonListUpdate).updateList(pokemonList)
         })
     }
 

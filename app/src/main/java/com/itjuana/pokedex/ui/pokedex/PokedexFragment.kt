@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.itjuana.pokedex.PokemonApplication
+import com.itjuana.pokedex.R
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.local.source.PokedexDataSource
 import com.itjuana.pokedex.databinding.FragmentPokedexBinding
@@ -46,10 +48,23 @@ class PokedexFragment : Fragment(), PokemonListItemCallback {
         viewLifecycleOwner.lifecycleScope.launch {
             pokedexViewModel.getAllPokemon()
         }
+
         // Observe pokemon list for updates
         pokedexViewModel.pokemonList.observe(this.viewLifecycleOwner, { pokemonList ->
             (recyclerView.adapter as PokedexAdapter).updateList(pokemonList)
         })
+
+        // Observe picked pokemon
+        pokedexViewModel.defenderSelectMode.observe(this.viewLifecycleOwner, { selectMode ->
+            if (selectMode) {
+                binding.pokemon = pokedexViewModel.attackerPokemon.value
+                binding.standardBottomSheet.visibility = View.VISIBLE
+            } else {
+                binding.pokemon = null
+                binding.standardBottomSheet.visibility = View.GONE
+            }
+        })
+
         // Update pokemon list as the user types a pokemon name
         // If query is blank, show all pokemon in database
         binding.pokemonSearchEditText.doAfterTextChanged { query ->
@@ -65,23 +80,50 @@ class PokedexFragment : Fragment(), PokemonListItemCallback {
                 }
             }
         }
+
+        binding.standardBottomSheet.setOnClickListener {
+            pokedexViewModel.clearSelectMode()
+        }
     }
 
+    /**
+     * Create Dialog to pick attacker Pokemon for damage calculator, or show Pokemon details
+     */
     override fun onClick(pokemon: Pokemon) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setCancelable(true)
-            .setNegativeButton("Cancel") { _, _ ->
-
-            }
-            .setNeutralButton("Calculator") { _, _ ->
-
-            }
-            .setNeutralButton("Details") { _, _ ->
-                val action =
-                    PokedexFragmentDirections.actionNavigationPokedexToPokemonDetailFragment(pokemon)
-                findNavController().navigate(action)
-            }
-            .create().show()
+        if (pokedexViewModel.defenderSelectMode.value == false) {
+            MaterialAlertDialogBuilder(requireContext())
+                .setCancelable(true)
+                .setNegativeButton(R.string.cancel_button_text) { _, _ ->
+                    // Cancel operation
+                }
+                .setPositiveButton(getString(R.string.calculator_button_text)) { _, _ ->
+                    // Select Pokemon for damage calculator
+                    pokedexViewModel.selectPokemon(pokemon)
+                    if (pokedexViewModel.defenderSelectMode.value == true) {
+                        Toast.makeText(
+                            requireContext(),
+                            "Please select another pokemon or tap bottom to cancel",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+                .setNeutralButton(getString(R.string.details_button_text)) { _, _ ->
+                    // Go to Pokemon details screen
+                    val action =
+                        PokedexFragmentDirections.actionNavigationPokedexToPokemonDetailFragment(
+                            pokemon
+                        )
+                    findNavController().navigate(action)
+                }
+                .create().show()
+        } else {
+            val action =
+                PokedexFragmentDirections.actionNavigationPokedexToDamageCalculatorFragment(
+                    pokedexViewModel.attackerPokemon.value!!,
+                    pokemon
+                )
+            findNavController().navigate(action)
+            pokedexViewModel.clearSelectMode()
+        }
     }
-
 }

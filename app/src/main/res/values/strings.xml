@@ -15,4 +15,14 @@
     <string name="add_pokedex">Pokedex</string>
     <string name="pokedex_deleted_message">%s deleted from your Pokedex!</string>
     <string name="pokedex_added_message">%s added to your Pokedex!</string>
+    <string name="attacker_pokemon_prompt">Choose attacker Pokemon</string>
+    <string name="cancel_button_text">Cancel</string>
+    <string name="calculator_button_text">Calculator</string>
+    <string name="details_button_text">Details</string>
+    <string name="defender_pokemon_prompt">Choose defender pokemon</string>
+    <string name="pokemon_level_name">Lvl %d %s</string>
+    <string name="stat_power">POWER: %d</string>
+    <string name="damage_text_message">%d damage!</string>
+    <string name="calculator_title_text">%s attacks %s!</string>
+    <string name="calculator_return_button_text">Return</string>
 </resources>

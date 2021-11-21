@@ -7,13 +7,11 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.google.android.material.card.MaterialCardView
 import com.itjuana.pokedex.R
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.model.Type
-import com.itjuana.pokedex.ui.utils.PokemonAdapter
+import com.itjuana.pokedex.ui.utils.PokemonListUpdate
 import com.itjuana.pokedex.util.Status
-import java.util.*
 
 /**
  * Bind pokemon sprite to imageView
@@ -28,13 +26,18 @@ fun bindSprite(imgView: ImageView, imgUrl: String?) {
         .into(imgView)
 }
 
+//@BindingAdapter("bottomPokemonBarVisibility")
+//fun bindPokedexBottomSheetVisibility(frame: FrameLayout, isSelectingDefenderPokemon: Boolean) {
+//    frame.visibility = if (isSelectingDefenderPokemon) View.VISIBLE else View.GONE
+//}
+
 /**
- * Update RecyclerView
+ * Update RecyclerView using interface, providing support for database and API adapters
  */
 @BindingAdapter("pokemonList")
 fun bindPokemon(recyclerView: RecyclerView, pokemonList: List<Pokemon?>?) {
     if (pokemonList != null) {
-        val adapter = recyclerView.adapter as PokemonAdapter
+        val adapter = recyclerView.adapter as PokemonListUpdate
         adapter.updateList(pokemonList)
     }
 }
@@ -53,7 +56,7 @@ fun bindText(textView: TextView, type: Type) {
 @BindingAdapter("pokemonItemBackgroundColor")
 fun bindBackgroundColor(view: View, type: Type) {
     val typeColors = view.context.resources.getIntArray(R.array.pokemon_types)
-    view.setBackgroundColor(typeColors[type.id-1])
+    view.setBackgroundColor(typeColors[type.id - 1])
 }
 
 /**

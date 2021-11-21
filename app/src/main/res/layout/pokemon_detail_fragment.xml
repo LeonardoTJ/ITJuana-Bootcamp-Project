@@ -36,7 +36,6 @@
                 android:layout_marginEnd="24dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_close"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/pokemon_name"
                 app:layout_constraintBottom_toBottomOf="@id/pokemon_type"/>
@@ -78,6 +77,7 @@
                 android:layout_height="240dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
+                tools:src="@drawable/bulbasaur"
                 app:spriteUrl="@{pokemon.spriteUrl}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

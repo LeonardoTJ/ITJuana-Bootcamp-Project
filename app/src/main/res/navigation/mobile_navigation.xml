@@ -18,6 +18,9 @@
         <argument
             android:name="pokemonArg"
             app:argType="com.itjuana.pokedex.data.domain.model.Pokemon" />
+        <action
+            android:id="@+id/action_navigation_pokedex_to_damageCalculatorFragment"
+            app:destination="@id/damageCalculatorFragment" />
     </fragment>
 
     <fragment
@@ -70,6 +73,22 @@
         <action
             android:id="@+id/action_pokemonDetailFragment_pop"
             app:popUpTo="@id/pokemonDetailFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/damageCalculatorFragment"
+        android:name="com.itjuana.pokedex.ui.calculator.DamageCalculatorFragment"
+        android:label="damage_calculator_fragment"
+        tools:layout="@layout/damage_calculator_fragment" >
+        <argument
+            android:name="attackerPokemon"
+            app:argType="com.itjuana.pokedex.data.domain.model.Pokemon" />
+        <argument
+            android:name="defenderPokemon"
+            app:argType="com.itjuana.pokedex.data.domain.model.Pokemon" />
+        <action
+            android:id="@+id/action_damageCalculatorFragment_pop"
+            app:popUpTo="@id/damageCalculatorFragment"
             app:popUpToInclusive="true" />
     </fragment>
 

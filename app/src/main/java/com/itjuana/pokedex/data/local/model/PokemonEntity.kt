@@ -47,8 +47,8 @@ fun PokemonEntity.toPokemon() = Pokemon(
     Type.fromInt(type),
     doubleDamageFrom.map { type -> Type.fromInt(type) },
     doubleDamageTo.map { type -> Type.fromInt(type) },
-    halfDamageTo.map { type -> Type.fromInt(type) },
     halfDamageFrom.map { type -> Type.fromInt(type) },
-    noDamageTo.map { type -> Type.fromInt(type) },
+    halfDamageTo.map { type -> Type.fromInt(type) },
     noDamageFrom.map { type -> Type.fromInt(type) },
+    noDamageTo.map { type -> Type.fromInt(type) },
 )

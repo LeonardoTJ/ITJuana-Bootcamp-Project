@@ -7,7 +7,7 @@ import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.databinding.PokemonItemBinding
 
 class PokemonAdapter(private val callback: PokemonListItemCallback) :
-    RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
+    RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>(), PokemonListUpdate {
     private var pokemonList: List<Pokemon?> = emptyList()
 
     /**
@@ -33,7 +33,7 @@ class PokemonAdapter(private val callback: PokemonListItemCallback) :
         }
     }
 
-    fun updateList(newList: List<Pokemon?>) {
+    override fun updateList(newList: List<Pokemon?>) {
         pokemonList = newList
         // Notify observers
         notifyDataSetChanged()
