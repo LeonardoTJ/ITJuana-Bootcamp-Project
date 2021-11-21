@@ -2,6 +2,7 @@ package com.itjuana.pokedex.ui
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -77,22 +78,16 @@ fun bindBackgroundColor(view: View, type: Type) {
  * Show placeholder image based on search status, via a mutable data in SearchViewModel
  */
 @BindingAdapter("pokemonSearchNoResults")
-fun bindStatusImage(statusImageView: ImageView, status: Status?) {
+fun bindStatusImage(statusView: LinearLayout, status: Status?) {
     when (status) {
-        Status.LOADING -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_image)
-        }
         Status.ERROR -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_broken_image)
+            statusView.visibility = View.VISIBLE
         }
         Status.SUCCESS -> {
-            statusImageView.visibility = View.GONE
+            statusView.visibility = View.GONE
         }
         Status.EMPTY -> {
-            statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_image_missing)
+            statusView.visibility = View.VISIBLE
         }
     }
 }

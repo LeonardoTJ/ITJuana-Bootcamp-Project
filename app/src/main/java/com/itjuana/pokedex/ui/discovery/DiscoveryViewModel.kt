@@ -26,7 +26,6 @@ class DiscoveryViewModel(private val searchPokemonRepository: SearchPokemonRepos
      * Query Pokemon API for 10 random pokemon
      */
     suspend fun getDiscoveryPokemon() {
-        _status.value = Status.LOADING
         try {
             _pokemonList.value =
                 searchPokemonRepository.getPokemonList(ApiUtils.getRandomPokemonIdList())
