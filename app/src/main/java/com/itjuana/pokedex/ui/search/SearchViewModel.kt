@@ -1,16 +1,16 @@
 package com.itjuana.pokedex.ui.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.RetrofitBuilder
 import com.itjuana.pokedex.data.remote.source.PokeApiDataSource
 import com.itjuana.pokedex.data.repository.SearchPokemonRepository
 import com.itjuana.pokedex.util.Status
+import retrofit2.HttpException
 
-class SearchViewModel(private val searchPokemonRepository: SearchPokemonRepository) : ViewModel() {
+class SearchViewModel(
+    private val searchPokemonRepository: SearchPokemonRepository
+) : ViewModel() {
 
     // Status of current request
     private val _status = MutableLiveData<Status>(Status.EMPTY)
@@ -20,16 +20,24 @@ class SearchViewModel(private val searchPokemonRepository: SearchPokemonReposito
     private val _pokemon = MutableLiveData<Pokemon?>()
     var pokemon: LiveData<Pokemon?> = _pokemon
 
+    // Search history
+    private val _searchHistory = MutableLiveData<List<Pokemon>>()
+    var searchHistory: LiveData<List<Pokemon>> = _searchHistory
+
     suspend fun getPokemonByNameOrId(name: String) {
-        _status.value = Status.LOADING
         try {
             _pokemon.value = searchPokemonRepository.searchPokemonByName(name)
             _status.value = Status.SUCCESS
-        } catch (e: Exception) {
+        } catch (e: HttpException) {
             _pokemon.value = null
-            _status.value = Status.ERROR
             e.printStackTrace()
         }
+    }
+
+    fun addToHistory(pokemonList: List<Pokemon>) {
+        _searchHistory.postValue(pokemonList)
+        _pokemon.value = null
+        _status.value = Status.SUCCESS
     }
 
     /**
