@@ -1,15 +1,11 @@
 package com.itjuana.pokedex.ui.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.itjuana.pokedex.MainActivity
 import com.itjuana.pokedex.R
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class SplashActivity : AppCompatActivity() {
 

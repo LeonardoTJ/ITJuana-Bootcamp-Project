@@ -46,6 +46,8 @@
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
         <item name="bottomSheetDialogTheme">@style/CustomBottomSheetDialog</item>
     </style>
+
+    <!--  Bottom Sheet customization  -->
     <style name="CustomBottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
     </style>
