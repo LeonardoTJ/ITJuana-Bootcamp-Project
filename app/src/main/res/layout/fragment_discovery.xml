@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.itjuana.pokedex.ui.discovery.DiscoveryViewModel" />
@@ -26,6 +27,10 @@
             app:layout_constraintTop_toTopOf="parent"
             app:pokemonList="@{viewModel.pokemonList}"
             tools:listitem="@layout/pokemon_item" />
+
+        <include
+            android:id="@+id/query_placeholder"
+            layout="@layout/progress_indicator" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

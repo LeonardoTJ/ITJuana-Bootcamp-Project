@@ -12,15 +12,6 @@
         android:src="@drawable/splash"
         android:scaleType="fitXY"/>
 
-    <ProgressBar
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/teal_200"
-        style="@style/Widget.Material3.CircularProgressIndicator.Medium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include layout="@layout/progress_indicator" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@ import com.itjuana.pokedex.databinding.FragmentDiscoveryBinding
 import com.itjuana.pokedex.ui.utils.PokemonAdapter
 import com.itjuana.pokedex.ui.utils.PokemonListItemCallback
 import com.itjuana.pokedex.ui.utils.PokemonListUpdate
+import com.itjuana.pokedex.util.Status
 import kotlinx.coroutines.launch
 
 class DiscoveryFragment : Fragment(), PokemonListItemCallback {
@@ -41,9 +42,24 @@ class DiscoveryFragment : Fragment(), PokemonListItemCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val recyclerView = binding.discoveryRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = PokemonAdapter(this)
+
+        // Observe if Pokemon list is empty
+        discoveryViewModel.status.observe(this.viewLifecycleOwner, { queryStatus ->
+                when (queryStatus) {
+                    Status.ERROR, Status.EMPTY -> {
+                        binding.queryPlaceholder.progressIndicator.visibility = View.VISIBLE
+                        binding.discoveryRecyclerView.visibility = View.GONE
+                    }
+                    else -> {
+                        binding.queryPlaceholder.progressIndicator.visibility = View.GONE
+                        binding.discoveryRecyclerView.visibility = View.VISIBLE
+                    }
+                }
+        })
 
         // Populate viewModel with random pokemon
         viewLifecycleOwner.lifecycleScope.launch {

@@ -87,6 +87,11 @@ class SearchFragment : Fragment(), PokemonListItemCallback {
         })
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+    }
+
     override fun onClick(pokemon: Pokemon) {
         showPokemonDetails(pokemon)
     }

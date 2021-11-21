@@ -79,15 +79,12 @@ fun bindBackgroundColor(view: View, type: Type) {
  */
 @BindingAdapter("pokemonSearchNoResults")
 fun bindStatusImage(statusView: LinearLayout, status: Status?) {
-    when (status) {
-        Status.ERROR -> {
-            statusView.visibility = View.VISIBLE
+    statusView.visibility = when (status) {
+        Status.ERROR, Status.EMPTY -> {
+            View.VISIBLE
         }
-        Status.SUCCESS -> {
-            statusView.visibility = View.GONE
-        }
-        Status.EMPTY -> {
-            statusView.visibility = View.VISIBLE
+        else -> {
+            View.GONE
         }
     }
 }

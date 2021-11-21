@@ -20,6 +20,7 @@ import com.itjuana.pokedex.databinding.FragmentPokedexBinding
 import com.itjuana.pokedex.ui.utils.PokemonAdapter
 import com.itjuana.pokedex.ui.utils.PokemonListItemCallback
 import com.itjuana.pokedex.ui.utils.PokemonListUpdate
+import com.itjuana.pokedex.util.Status
 import kotlinx.coroutines.launch
 
 class PokedexFragment : Fragment(), PokemonListItemCallback {
@@ -50,23 +51,30 @@ class PokedexFragment : Fragment(), PokemonListItemCallback {
         viewLifecycleOwner.lifecycleScope.launch {
             pokedexViewModel.getAllPokemon()
         }
-
+        // Observe if Pokemon list is empty
+        pokedexViewModel.status.observe(this.viewLifecycleOwner, { pokemonListStatus ->
+            binding.noResultsLayout.visibility = when (pokemonListStatus) {
+                Status.ERROR, Status.EMPTY -> {
+                    View.VISIBLE
+                }
+                else -> {
+                    View.GONE
+                }
+            }
+        })
         // Observe pokemon list for updates
         pokedexViewModel.pokemonList.observe(this.viewLifecycleOwner, { pokemonList ->
             (recyclerView.adapter as PokemonListUpdate).updateList(pokemonList)
         })
-
         // Observe Pokemon selection mode for damage comparison
-        // Show selected Pokemon at the bottom and hide search bar, and vice versa
+        // Show selected Pokemon at the bottom
         pokedexViewModel.defenderSelectMode.observe(this.viewLifecycleOwner, { selectMode ->
             if (selectMode) {
                 binding.pokemon = pokedexViewModel.attackerPokemon.value
                 binding.standardBottomSheet.visibility = View.VISIBLE
-                binding.topSearchBar.visibility = View.GONE
             } else {
                 binding.pokemon = null
                 binding.standardBottomSheet.visibility = View.GONE
-                binding.topSearchBar.visibility = View.VISIBLE
             }
         })
 

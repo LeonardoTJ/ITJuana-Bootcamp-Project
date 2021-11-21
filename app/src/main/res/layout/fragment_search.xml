@@ -73,33 +73,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/pokemon_item" />
+            tools:listitem="@layout/pokemon_item"
+            tools:visibility="visible"/>
 
         <LinearLayout
-            android:id="@+id/no_results_view"
-            android:layout_width="wrap_content"
+            android:id="@+id/no_results_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="68dp"
-            android:layout_marginBottom="?attr/actionBarSize"
-            android:orientation="vertical"
-            android:alpha="0.50"
+            android:layout_gravity="center_horizontal"
             app:pokemonSearchNoResults="@{viewModel.status}"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:alpha="0.50"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/pokemon_search_field"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pokemon_search_submit"
             tools:visibility="gone">
 
             <ImageView
                 android:id="@+id/status_image"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:layout_gravity="center"
-                android:src="@drawable/pokeball"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pokemon_search_field" />
-            <!--            app:pokemonSearchNoResults="@{viewModel.status}" -->
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/pokeball" />
 
             <TextView
                 android:id="@+id/no_results_text"
@@ -108,12 +105,9 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/no_results_text"
+                android:layout_gravity="center_horizontal"
                 android:textAllCaps="true"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,14 +1,19 @@
 package com.itjuana.pokedex.ui.pokedex
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.local.source.PokedexDataSource
 import com.itjuana.pokedex.data.repository.PokedexRepository
+import com.itjuana.pokedex.util.Status
 
 class PokedexViewModel(private val pokedexRepository: PokedexRepository) : ViewModel() {
+
+    // Status of search query
+    private val _status = MutableLiveData<Status>(Status.EMPTY)
+    var status: LiveData<Status> = _status
 
     private var _attackerPokemon = MutableLiveData<Pokemon?>()
     val attackerPokemon: MutableLiveData<Pokemon?> = _attackerPokemon
@@ -22,9 +27,13 @@ class PokedexViewModel(private val pokedexRepository: PokedexRepository) : ViewM
     private var _pokemonList = MutableLiveData<List<Pokemon>>()
     val pokemonList: MutableLiveData<List<Pokemon>> = _pokemonList
 
-
     suspend fun getAllPokemon() {
         _pokemonList.value = pokedexRepository.getAllPokemon()
+        if (_pokemonList.value.isNullOrEmpty()) {
+            _status.value = Status.EMPTY
+        } else {
+            _status.value = Status.SUCCESS
+        }
     }
 
     suspend fun searchPokemon(name: String) {
@@ -41,17 +50,17 @@ class PokedexViewModel(private val pokedexRepository: PokedexRepository) : ViewM
 
     suspend fun addPokemon(pokemon: Pokemon) {
         pokedexRepository.addPokemon(pokemon)
+        _status.value = Status.SUCCESS
     }
 
     suspend fun deletePokemon(pokemon: Pokemon) {
         pokedexRepository.deletePokemon(pokemon)
+        if (pokedexRepository.getAllPokemon().isNullOrEmpty()) {
+            _status.value = Status.EMPTY
+        }
     }
 
     fun selectPokemon(pokemon: Pokemon) {
-        Log.d(
-            "PokedexViewModel",
-            "selectMode: ${_defenderSelectMode.value}, atk pokemon: ${_attackerPokemon.value}, def pokemon: ${_defenderPokemon.value}"
-        )
         if (_defenderSelectMode.value == true) {
             _defenderPokemon.value = pokemon
             clearSelectMode()
