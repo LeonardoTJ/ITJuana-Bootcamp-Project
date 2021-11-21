@@ -63,10 +63,6 @@
             app:destination="@id/navigation_pokedex"
             app:exitAnim="@anim/nav_default_exit_anim" />
         <action
-            android:id="@+id/action_pokemonDetailFragment_to_navigation_search"
-            app:destination="@id/navigation_search"
-            app:exitAnim="@anim/nav_default_exit_anim" />
-        <action
             android:id="@+id/action_pokemonDetailFragment_to_navigation_discovery"
             app:destination="@id/navigation_discovery"
             app:exitAnim="@anim/nav_default_exit_anim" />
