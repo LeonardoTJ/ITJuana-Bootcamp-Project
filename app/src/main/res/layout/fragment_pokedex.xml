@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="pokemon"
             type="com.itjuana.pokedex.data.domain.model.Pokemon" />
+
         <variable
             name="pokedexViewModel"
             type="com.itjuana.pokedex.ui.pokedex.PokedexViewModel" />
@@ -15,53 +17,53 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
         android:fitsSystemWindows="true"
         tools:context=".ui.pokedex.PokedexFragment">
 
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginEnd="-50dp"
-            android:layout_marginBottom="-50dp"
-            android:adjustViewBounds="true"
-            android:alpha="0.40"
-            android:rotation="-20"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/pokedex_search_prompt_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Pokedex" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/pokemon_search_field"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <LinearLayout
+            android:id="@+id/top_search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="8dp"
-            android:hint="@string/pokemon_search_hint"
-            app:helperTextTextAppearance="@style/TextAppearance.Material3.LabelMedium"
+            android:padding="24dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pokedex_search_prompt_text">
+            app:layout_constraintStart_toStartOf="parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/pokemon_search_edit_text"
+            <TextView
+                android:id="@+id/pokedex_search_prompt_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/pokedex_title_text"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/pokemon_search_field"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textPersonName|textNoSuggestions"
-                android:maxLines="1" />
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="8dp"
+                android:hint="@string/pokemon_search_hint"
+                app:helperTextTextAppearance="@style/TextAppearance.Material3.LabelMedium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pokedex_search_prompt_text">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pokemon_search_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPersonName|textNoSuggestions"
+                    android:maxLines="1" />
 
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -69,22 +71,35 @@
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:scrollbars="vertical"
-            android:layout_marginBottom="?attr/actionBarSize"
             app:layout_constraintBottom_toTopOf="@id/standard_bottom_sheet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/pokemon_search_field"
+            app:layout_constraintTop_toBottomOf="@id/top_search_bar"
             tools:listitem="@layout/pokemon_item" />
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/standard_bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="85dp"
-            android:layout_marginBottom="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/select_mode_hint_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:gravity="center"
+                android:shadowRadius="5"
+                android:text="@string/select_mode_hint_text"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textSize="22sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/selected_pokemon_sprite"
@@ -101,16 +116,16 @@
                 android:id="@+id/pokemon_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="24dp"
                 android:gravity="center"
                 android:shadowRadius="5"
                 android:text="@{pokemon.name}"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/selected_pokemon_sprite"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Bulbasaur" />
 
-        </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -12,6 +12,8 @@
     <string name="stat_hp">HP: %d</string>
     <string name="stat_atk">ATTACK: %d</string>
     <string name="stat_def">DEFENSE: %d</string>
+    <string name="stat_sp_atk">SP ATTACK: %d</string>
+    <string name="stat_sp_def">SP DEFENSE: %d</string>
     <string name="add_pokedex">Pokedex</string>
     <string name="pokedex_deleted_message">%s deleted from your Pokedex!</string>
     <string name="pokedex_added_message">%s added to your Pokedex!</string>
@@ -25,4 +27,7 @@
     <string name="damage_text_message">%d damage!</string>
     <string name="calculator_title_text">%s attacks %s!</string>
     <string name="calculator_return_button_text">Return</string>
+    <string name="no_results_text">No results</string>
+    <string name="pokedex_title_text">Your Pokedex</string>
+    <string name="select_mode_hint_text">Tap to cancel</string>
 </resources>

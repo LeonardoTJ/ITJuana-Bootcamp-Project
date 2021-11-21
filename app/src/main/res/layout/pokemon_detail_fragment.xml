@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="pokemon"
             type="com.itjuana.pokedex.data.domain.model.Pokemon" />
@@ -12,76 +13,113 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_marginBottom="?attr/actionBarSize"
         tools:context=".ui.detail.PokemonDetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:pokemonItemBackgroundColor="@{pokemon.type}"
+            android:padding="24dp">
 
             <ImageButton
                 android:id="@+id/pokedex_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:scaleType="fitCenter"
                 android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
-                tools:src="@drawable/ic_delete_pokemon"
+                app:tint="@color/black"
+                app:layout_constraintBottom_toBottomOf="@id/pokemon_type"
                 app:layout_constraintEnd_toStartOf="@id/close_button"
                 app:layout_constraintTop_toTopOf="@id/pokemon_name"
-                app:layout_constraintBottom_toBottomOf="@id/pokemon_type"/>
+                tools:src="@drawable/ic_delete_pokemon" />
 
             <ImageButton
                 android:id="@+id/close_button"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:scaleType="fitCenter"
                 android:layout_marginEnd="24dp"
+                app:tint="@color/black"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_close"
+                app:layout_constraintBottom_toBottomOf="@id/pokemon_type"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/pokemon_name"
-                app:layout_constraintBottom_toBottomOf="@id/pokemon_type"/>
+                app:layout_constraintTop_toTopOf="@id/pokemon_name" />
 
             <TextView
                 android:id="@+id/pokemon_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="24dp"
+                android:gravity="center"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
                 android:text="@{pokemon.name}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Pikachu" />
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Bulbasaur" />
+
+
+            <TextView
+                android:id="@+id/pokemon_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="screen"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="2dp"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@id/pokemon_name"
+                app:layout_constraintTop_toBottomOf="@id/pokemon_name"
+                app:pokemonItemBackgroundColor="@{pokemon.type}"
+                app:pokemonTypeText="@{pokemon.type}"
+                tools:backgroundTint="@color/type_grass"
+                tools:text="GRASS" />
+
+            <ImageView
+                android:id="@+id/background_image"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_gravity="center"
+                android:alpha="0.40"
+                android:src="@drawable/pokeball"
+                app:layout_constraintBottom_toBottomOf="@id/pokemon_sprite"
+                app:layout_constraintEnd_toEndOf="@id/pokemon_sprite"
+                app:layout_constraintStart_toStartOf="@id/pokemon_sprite"
+                app:layout_constraintTop_toTopOf="@id/pokemon_sprite" />
+
+            <ImageView
+                android:id="@+id/pokemon_sprite"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pokemon_type"
+                app:spriteUrl="@{pokemon.spriteUrl}"
+                tools:src="@drawable/bulbasaur" />
 
             <TextView
                 android:id="@+id/pokemon_number"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{String.valueOf(pokemon.id)}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                app:layout_constraintBottom_toBottomOf="@id/pokemon_name"
-                app:layout_constraintStart_toEndOf="@id/pokemon_name"
+                android:textStyle="italic"
+                android:textColor="@color/black"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                app:layout_constraintBottom_toBottomOf="@id/background_image"
+                app:layout_constraintEnd_toEndOf="@id/background_image"
                 tools:text="#25" />
-
-            <TextView
-                android:id="@+id/pokemon_type"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                app:layout_constraintStart_toStartOf="@id/pokemon_name"
-                app:layout_constraintTop_toBottomOf="@id/pokemon_name"
-                tools:text="Electric" />
-
-            <ImageView
-                android:id="@+id/pokemon_sprite"
-                android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="24dp"
-                tools:src="@drawable/bulbasaur"
-                app:spriteUrl="@{pokemon.spriteUrl}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pokemon_type" />
 
             <TextView
                 android:id="@+id/stats_title"
@@ -89,23 +127,29 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/stats_title"
+                android:textColor="@color/black"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pokemon_sprite" />
+                app:layout_constraintTop_toBottomOf="@id/background_image" />
 
             <TextView
                 android:id="@+id/pokemon_hp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/light_beige"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="screen"
                 android:gravity="center"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
                 android:text="@{@string/stat_hp(pokemon.hp)}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/stats_title"
+                app:pokemonItemBackgroundColor="@{pokemon.type}"
                 tools:text="HP: 35" />
 
             <TextView
@@ -113,10 +157,15 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/light_beige"
                 android:gravity="center"
                 android:text="@{@string/stat_atk(pokemon.attack)}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="screen"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textColor="@color/white"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
+                app:pokemonItemBackgroundColor="@{pokemon.type}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pokemon_hp"
@@ -127,14 +176,57 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/light_beige"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="screen"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textColor="@color/white"
+                android:shadowColor="@color/black"
+                app:pokemonItemBackgroundColor="@{pokemon.type}"
+                android:shadowRadius="5"
                 android:gravity="center"
                 android:text="@{@string/stat_def(pokemon.defense)}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pokemon_atk"
                 tools:text="DEFENSE: 40" />
+
+            <TextView
+                android:id="@+id/pokemon_sp_atk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="screen"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textColor="@color/white"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
+                app:pokemonItemBackgroundColor="@{pokemon.type}"
+                android:gravity="center"
+                android:text="@{@string/stat_sp_atk(pokemon.spAttack)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pokemon_def"
+                tools:text="SP ATTACK: 65" />
+
+            <TextView
+                android:id="@+id/pokemon_sp_def"
+                android:layout_width="0dp"
+                app:pokemonItemBackgroundColor="@{pokemon.type}"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="screen"
+                android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+                android:textColor="@color/white"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
+                android:gravity="center"
+                android:text="@{@string/stat_sp_def(pokemon.spDefense)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/pokemon_sp_atk"
+                tools:text="SP ATTACK: 65" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
