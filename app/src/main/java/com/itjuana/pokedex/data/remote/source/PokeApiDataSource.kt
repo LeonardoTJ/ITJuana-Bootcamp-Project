@@ -6,6 +6,7 @@ import com.itjuana.pokedex.data.remote.model.PokemonResponse
 import com.itjuana.pokedex.data.remote.model.Stat
 import com.itjuana.pokedex.data.remote.model.Type
 import com.itjuana.pokedex.data.repository.SearchPokemonRepository
+import com.itjuana.pokedex.util.ApiUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -59,7 +60,7 @@ class PokeApiDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepos
 
         return Pokemon(
             id = pokemonResponse.id,
-            name = validateName(pokemonResponse.name),
+            name = ApiUtils.validateName(pokemonResponse.name),
             height = "${pokemonResponse.height / 10.0}m",
             weight = "${pokemonResponse.weight / 10.0}kg",
             spriteUrl = pokemonResponse.spritesResponse.otherSpritesResponse?.officialArtworkResponse?.officialArtworkFrontDefaultUrl,
@@ -101,14 +102,6 @@ class PokeApiDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepos
                 )
             }
         )
-    }
-
-    private fun validateName(name: String): String {
-        val newName = name.replaceFirstChar { it.uppercase() }
-        if (newName.contains('-')) {
-            return newName.split('-')[0]
-        }
-        return newName
     }
 
     private fun getTypeIdFromUrl(url: String): Type {
