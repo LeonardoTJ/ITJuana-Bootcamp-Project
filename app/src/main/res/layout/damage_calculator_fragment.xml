@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="attackerPokemon"
             type="com.itjuana.pokedex.data.domain.model.Pokemon" />
+
         <variable
             name="defenderPokemon"
             type="com.itjuana.pokedex.data.domain.model.Pokemon" />
@@ -15,6 +17,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
         tools:context=".ui.calculator.DamageCalculatorFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,18 +25,43 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
+            <ImageView
+                android:id="@+id/battle_background"
+                android:layout_width="0dp"
+                android:layout_height="230dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="16dp"
+                android:src="@drawable/pokemon_battle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/calculator_title" />
+
+            <TextView
+                android:id="@+id/damage_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/battle_background"
+                app:layout_constraintEnd_toEndOf="@id/battle_background"
+                app:layout_constraintStart_toStartOf="@id/battle_background"
+                tools:text="13 damage!" />
+
             <TextView
                 android:id="@+id/calculator_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="72dp"
-                android:textSize="24sp"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 tools:text="Bulbasaur attacks Bulbasaur!" />
 
             <TextView
@@ -42,42 +70,61 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="src_atop"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/calculator_title"
+                app:layout_constraintTop_toBottomOf="@id/battle_background"
+                app:pokemonItemBackgroundColor="@{attackerPokemon.type}"
                 tools:text="Lvl 10 Bulbasaur" />
 
             <ImageView
                 android:id="@+id/attacker_pokemon_sprite"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_margin="24dp"
-                app:spriteUrl="@{attackerPokemon.backSprite}"
-                tools:src="@drawable/bulbasaur"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/attacker_pokemon_name" />
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginBottom="68dp"
+                app:layout_constraintBottom_toBottomOf="@id/battle_background"
+                app:layout_constraintStart_toStartOf="@id/battle_background"
+                app:spriteUrl="@{attackerPokemon.backSprite ?? attackerPokemon.frontSprite}"
+                tools:src="@drawable/bulbasaur" />
 
             <TextView
                 android:id="@+id/attacker_pokemon_atk"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="src_atop"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
                 android:text="@{@string/stat_atk(attackerPokemon.attack)}"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/attacker_pokemon_sprite"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@id/battle_background"
+                app:layout_constraintTop_toBottomOf="@id/attacker_pokemon_name"
+                app:pokemonItemBackgroundColor="@{attackerPokemon.type}"
                 tools:text="ATK: 55" />
+
             <TextView
                 android:id="@+id/attacker_pokemon_def"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="src_atop"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
                 android:text="@{@string/stat_def(attackerPokemon.defense)}"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/attacker_pokemon_atk"
+                app:pokemonItemBackgroundColor="@{attackerPokemon.type}"
                 tools:text="DEF: 40" />
 
             <TextView
@@ -86,82 +133,91 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="src_atop"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
+                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/attacker_pokemon_def"
+                app:pokemonItemBackgroundColor="@{attackerPokemon.type}"
                 tools:text="POWER: 34" />
 
-            <TextView
-                android:id="@+id/damage_text"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center"
-                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
-                app:layout_constraintStart_toEndOf="@id/attacker_pokemon_sprite"
-                app:layout_constraintTop_toTopOf="@id/attacker_pokemon_sprite"
-                app:layout_constraintEnd_toStartOf="@id/defender_pokemon_sprite"
-                app:layout_constraintBottom_toBottomOf="@id/attacker_pokemon_sprite"
-                tools:text="130 damage!" />
 
             <TextView
                 android:id="@+id/defender_pokemon_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="src_atop"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/calculator_title"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/battle_background"
+                app:layout_constraintTop_toTopOf="@id/attacker_pokemon_name"
+                app:pokemonItemBackgroundColor="@{defenderPokemon.type}"
                 tools:text="Bulbasaur" />
 
             <ImageView
                 android:id="@+id/defender_pokemon_sprite"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_margin="24dp"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="48dp"
+                app:layout_constraintEnd_toEndOf="@id/battle_background"
+                app:layout_constraintTop_toTopOf="@id/battle_background"
                 app:spriteUrl="@{defenderPokemon.frontSprite}"
-                tools:src="@drawable/bulbasaur"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/defender_pokemon_name" />
+                tools:src="@drawable/bulbasaur" />
 
             <TextView
                 android:id="@+id/defender_pokemon_atk"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="src_atop"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
                 android:text="@{@string/stat_atk(defenderPokemon.attack)}"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/defender_pokemon_sprite"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/battle_background"
+                app:layout_constraintTop_toBottomOf="@id/defender_pokemon_name"
+                app:pokemonItemBackgroundColor="@{defenderPokemon.type}"
                 tools:text="ATK: 55" />
 
             <TextView
                 android:id="@+id/defender_pokemon_def"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/pokemon_type_label"
+                android:backgroundTintMode="src_atop"
+                android:shadowColor="@color/black"
+                android:shadowRadius="5"
                 android:text="@{@string/stat_def(defenderPokemon.defense)}"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/attacker_pokemon_atk"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/battle_background"
+                app:layout_constraintTop_toBottomOf="@id/defender_pokemon_atk"
+                app:pokemonItemBackgroundColor="@{defenderPokemon.type}"
                 tools:text="DEF: 40" />
 
             <Button
                 android:id="@+id/close_button"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:background="@android:color/transparent"
-                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:src="@drawable/ic_close"
                 android:text="@string/calculator_return_button_text"
                 android:textSize="18sp"
-                android:src="@drawable/ic_close"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/calculator_title"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/attacker_pokemon_power" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

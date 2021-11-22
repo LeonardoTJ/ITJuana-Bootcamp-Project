@@ -27,11 +27,6 @@ fun bindSprite(imgView: ImageView, imgUrl: String?) {
         .into(imgView)
 }
 
-//@BindingAdapter("bottomPokemonBarVisibility")
-//fun bindPokedexBottomSheetVisibility(frame: FrameLayout, isSelectingDefenderPokemon: Boolean) {
-//    frame.visibility = if (isSelectingDefenderPokemon) View.VISIBLE else View.GONE
-//}
-
 /**
  * Update RecyclerView using interface, providing support for database and API adapters
  */
@@ -60,20 +55,6 @@ fun bindBackgroundColor(view: View, type: Type) {
     view.setBackgroundColor(typeColors[type.id - 1])
 }
 
-/**
- * Show card view with pokemon data based on search status, via a mutable data in SearchViewModel
- */
-//@BindingAdapter("pokemonSearchCard")
-//fun bindResultCard(pokemonCard: MaterialCardView, status: Status?) {
-//    when (status) {
-//        Status.LOADING, Status.ERROR, Status.EMPTY -> {
-//            pokemonCard.visibility = View.GONE
-//        }
-//        Status.SUCCESS -> {
-//            pokemonCard.visibility = View.VISIBLE
-//        }
-//    }
-//}
 /**
  * Show placeholder image based on search status, via a mutable data in SearchViewModel
  */

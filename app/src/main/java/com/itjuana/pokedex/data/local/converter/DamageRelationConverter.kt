@@ -6,18 +6,15 @@ import com.google.gson.reflect.TypeToken
 
 class DamageRelationConverter {
 
-    companion object {
-        @Volatile
-        private var gson: Gson? = null
+    @Volatile
+    private var gson: Gson? = null
+    private val type = object : TypeToken<List<Int>>() {}.type
 
-        private val type = object : TypeToken<List<Int>>() {}.type
-
-        private fun getInstance(): Gson {
-            return gson ?: synchronized(this) {
-                val instance = Gson()
-                gson = instance
-                return instance
-            }
+    private fun getInstance(): Gson {
+        return gson ?: synchronized(this) {
+            val instance = Gson()
+            gson = instance
+            return instance
         }
     }
 
