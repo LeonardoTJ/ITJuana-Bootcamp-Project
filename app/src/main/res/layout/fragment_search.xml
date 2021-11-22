@@ -57,6 +57,7 @@
             android:layout_height="0dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_search"
+            android:contentDescription="@string/search_button_description"
             app:layout_constraintBottom_toBottomOf="@id/pokemon_search_field"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/pokemon_search_field"
@@ -94,6 +95,7 @@
             <ImageView
                 android:id="@+id/status_image"
                 android:layout_width="140dp"
+                android:contentDescription="@string/empty_result_list_placeholder_description"
                 android:layout_height="140dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/pokeball" />

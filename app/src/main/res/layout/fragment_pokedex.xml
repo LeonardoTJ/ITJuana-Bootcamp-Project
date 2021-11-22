@@ -95,6 +95,7 @@
                 android:id="@+id/status_image"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
+                android:contentDescription="@string/empty_result_list_placeholder_description"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/pokeball" />
 
@@ -139,6 +140,7 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:layout_margin="24dp"
+                android:importantForAccessibility="no"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

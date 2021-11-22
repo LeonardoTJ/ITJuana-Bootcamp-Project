@@ -30,4 +30,11 @@
     <string name="no_results_text">No results</string>
     <string name="pokedex_title_text">Your Pokedex</string>
     <string name="select_mode_hint_text">Tap to cancel</string>
+    <string name="initial_splash_screen_description">Initial splash screen</string>
+    <string name="empty_result_list_placeholder_description">Empty result list placeholder</string>
+    <string name="search_button_description">Submit search query</string>
+    <string name="pokedex_button_description">Add or remove Pokemon from Pokedex</string>
+    <string name="close_pokemon_details_button_description">Close Pokemon details screen</string>
+    <string name="pokemon_picture_description">Pokemon picture</string>
+    <string name="progress_indicator_description">Loading results placeholder image</string>
 </resources>
