@@ -20,19 +20,19 @@ object ApiUtils {
         return idSet.toList()
     }
 
-    fun validateName(name: String?): String {
+    fun validatePokemonSearchTerm(input: String?): String {
         // If name is null or blank string
-        if (name.isNullOrEmpty()) return ""
+        if (input.isNullOrEmpty()) return ""
         // If an ID was provided
-        val isDigit = name.all { Character.isDigit(it) }
+        val isDigit = input.all { Character.isDigit(it) }
         if (isDigit) {
             // Check if it is in range
-            if (Integer.valueOf(name) < 1 || Integer.valueOf(name) > MAX_POKEMON_ID) return ""
+            if (Integer.valueOf(input) < 1 || Integer.valueOf(input) > MAX_POKEMON_ID) return ""
 
-            return name
+            return input
         }
         // If it is an alphabetic name
-        val newName = name.lowercase().replaceFirstChar { it.uppercase() }
+        val newName = input.trim().lowercase().replaceFirstChar { it.uppercase() }
         if (newName.contains('-')) {
             return newName.split('-')[0]
         }

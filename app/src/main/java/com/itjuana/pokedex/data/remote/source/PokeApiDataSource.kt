@@ -1,6 +1,5 @@
 package com.itjuana.pokedex.data.remote.source
 
-import android.util.Log
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.PokemonApi
 import com.itjuana.pokedex.data.remote.model.PokemonResponse
@@ -60,7 +59,7 @@ class PokeApiDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepos
 
         return Pokemon(
             id = pokemonResponse.id,
-            name = ApiUtils.validateName(pokemonResponse.name),
+            name = ApiUtils.validatePokemonSearchTerm(pokemonResponse.name),
             height = "${pokemonResponse.height / 10.0}m",
             weight = "${pokemonResponse.weight / 10.0}kg",
             frontSprite = pokemonResponse.spritesResponse.spriteFrontDefaultUrl,

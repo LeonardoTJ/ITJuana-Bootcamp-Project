@@ -59,12 +59,11 @@ class SearchFragment : Fragment(), PokemonListItemCallback {
 
         val searchQueryText = binding.pokemonSearchEditText
         val searchButton = binding.pokemonSearchSubmit
-        Log.d("SearchFragment", "onViewCreated called, pokemon: ${searchViewModel.pokemon.value}, status: ${searchViewModel.status.value}")
 
         searchButton.setOnClickListener {
             // Check for empty input or containing whitespace
             val name = searchQueryText.text.toString()
-            val formattedName = ApiUtils.validateName(name)
+            val formattedName = ApiUtils.validatePokemonSearchTerm(name)
             // If name or ID seems valid, search for Pokemon
             if (formattedName.isNotBlank()) {
                 viewLifecycleOwner.lifecycleScope.launch {
