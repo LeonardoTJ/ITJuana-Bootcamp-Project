@@ -63,7 +63,6 @@ class PokedexViewModel(private val pokedexRepository: PokedexRepository) : ViewM
     fun selectPokemon(pokemon: Pokemon) {
         if (_defenderSelectMode.value == true) {
             _defenderPokemon.value = pokemon
-            clearSelectMode()
         } else {
             _attackerPokemon.value = pokemon
         }

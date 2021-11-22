@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.itjuana.pokedex.PokemonApplication
+import com.itjuana.pokedex.PokedexApplication
 import com.itjuana.pokedex.R
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.local.source.PokedexDataSource
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 class PokedexFragment : Fragment(), PokemonListItemCallback {
 
     private val pokedexViewModel: PokedexViewModel by activityViewModels {
-        PokedexViewModelFactory(PokedexDataSource((activity?.application as PokemonApplication).database.pokemonDao()))
+        PokedexViewModelFactory(PokedexDataSource((activity?.application as PokedexApplication).database.pokemonDao()))
     }
     private lateinit var binding: FragmentPokedexBinding
 
