@@ -29,7 +29,11 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_discovery, R.id.navigation_search, R.id.navigation_pokedex, R.id.pokemonDetailFragment, R.id.damageCalculatorFragment
+                R.id.navigation_discovery,
+                R.id.navigation_search,
+                R.id.navigation_pokedex,
+                R.id.pokemonDetailFragment,
+                R.id.damageCalculatorFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
