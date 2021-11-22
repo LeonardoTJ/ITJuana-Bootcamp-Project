@@ -6,17 +6,17 @@ data class SpritesResponse(
     @SerializedName("front_default")
     val spriteFrontDefaultUrl: String,
     @SerializedName("back_default")
-    val spriteBackDefaultUrl: String,
+    val spriteBackDefaultUrl: String?,
     @SerializedName("other")
-    val otherSpritesResponse: OtherSpritesResponse?,
+    val otherSpritesResponse: OtherSpritesResponse,
 )
 
 data class OtherSpritesResponse(
     @SerializedName("official-artwork")
-    val officialArtworkResponse: OfficialArtworkResponse?,
+    val officialArtworkResponse: OfficialArtworkResponse,
 )
 
 data class OfficialArtworkResponse(
     @SerializedName("front_default")
-    val officialArtworkFrontDefaultUrl: String?,
+    val officialArtworkFrontDefaultUrl: String,
 )

@@ -16,9 +16,9 @@ data class PokemonEntity(
     @ColumnInfo(name = "front_sprite")
     val frontSprite: String,
     @ColumnInfo(name = "back_sprite")
-    val backSprite: String,
+    val backSprite: String?,
     @ColumnInfo(name = "official_artwork")
-    val officialArtwork: String?,
+    val officialArtwork: String,
     val hp: Int,
     val attack: Int,
     val defense: Int,

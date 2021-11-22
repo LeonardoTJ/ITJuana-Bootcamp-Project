@@ -1,5 +1,6 @@
 package com.itjuana.pokedex.data.remote.source
 
+import android.util.Log
 import com.itjuana.pokedex.data.domain.model.Pokemon
 import com.itjuana.pokedex.data.remote.PokemonApi
 import com.itjuana.pokedex.data.remote.model.PokemonResponse
@@ -64,7 +65,7 @@ class PokeApiDataSource(private val pokemonApi: PokemonApi) : SearchPokemonRepos
             weight = "${pokemonResponse.weight / 10.0}kg",
             frontSprite = pokemonResponse.spritesResponse.spriteFrontDefaultUrl,
             backSprite = pokemonResponse.spritesResponse.spriteBackDefaultUrl,
-            officialArtwork = pokemonResponse.spritesResponse.otherSpritesResponse?.officialArtworkResponse?.officialArtworkFrontDefaultUrl,
+            officialArtwork = pokemonResponse.spritesResponse.otherSpritesResponse.officialArtworkResponse.officialArtworkFrontDefaultUrl,
             hp = pokemonResponse.stats[Stat.HP.ordinal].baseStat,
             attack = pokemonResponse.stats[Stat.ATTACK.ordinal].baseStat,
             defense = pokemonResponse.stats[Stat.DEFENSE.ordinal].baseStat,
