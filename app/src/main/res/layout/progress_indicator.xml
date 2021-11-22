@@ -11,6 +11,7 @@
         android:id="@+id/status_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:contentDescription="@string/progress_indicator_description"
         android:src="@drawable/pokeball"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
