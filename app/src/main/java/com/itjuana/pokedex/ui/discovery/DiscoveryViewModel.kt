@@ -43,11 +43,12 @@ class DiscoveryViewModel(private val searchPokemonRepository: SearchPokemonRepos
     class PokemonDiscoveryFactory : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DiscoveryViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
                 return DiscoveryViewModel(
                     searchPokemonRepository = PokeApiDataSource(RetrofitBuilder.instance)
                 ) as T
             }
-            throw java.lang.Exception("No class type supported")
+            throw java.lang.Exception("Unknown ViewModel class")
         }
     }
 }

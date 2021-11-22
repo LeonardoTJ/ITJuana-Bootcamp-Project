@@ -12,12 +12,13 @@ class SplashViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            delay(0)
+            delay(2000)
             _mainScreenFlag.value = true
         }
     }
 
     class SplashScreenFactory : ViewModelProvider.Factory {
+        @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(SplashViewModel::class.java)) {
                 return SplashViewModel() as T
