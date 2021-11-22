@@ -21,7 +21,7 @@ object DamageCalculator {
         defenderPokemon: Pokemon
     ): Int {
         val multiplier = getMultiplier(attackerPokemon, defenderPokemon)
-        return round(((((2 * attackerLevel) / 5.0) * attackerPower * (attackerPokemon.attack / defenderPokemon.defense)) / 50 + 2) * multiplier)
+        return round((((((2 * attackerLevel) / 5.0) + 2) * attackerPower * (attackerPokemon.attack / defenderPokemon.defense)) / 50 + 2) * multiplier)
             .toInt()
     }
 
