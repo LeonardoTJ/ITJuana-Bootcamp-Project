@@ -12,7 +12,7 @@ class PokedexDataSource(private val pokedexDao: PokedexDao) : PokedexRepository 
      * Query Pokedex database for a list of all saved Pokemon model objects
      */
     override suspend fun getAllPokemon(): List<Pokemon>? {
-        return pokedexDao.getAllPokemon()?.map { pokemonEntity ->
+        return pokedexDao.getAllPokemon().map { pokemonEntity ->
             pokemonEntity.toPokemon()
         }
     }

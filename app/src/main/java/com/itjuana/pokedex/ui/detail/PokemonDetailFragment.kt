@@ -1,7 +1,6 @@
 package com.itjuana.pokedex.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +47,6 @@ class PokemonDetailFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("DetailFragment", "onViewCreated called")
         viewLifecycleOwner.lifecycleScope.launch {
             if (pokedexViewModel.isInDatabase(queriedPokemon.id)) {
                 setPokedexButton(

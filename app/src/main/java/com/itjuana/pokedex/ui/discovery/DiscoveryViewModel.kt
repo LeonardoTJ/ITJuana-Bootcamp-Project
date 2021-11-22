@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.itjuana.pokedex.data.domain.model.Pokemon
+import com.itjuana.pokedex.data.remote.ApiUtils
 import com.itjuana.pokedex.data.remote.RetrofitBuilder
 import com.itjuana.pokedex.data.remote.source.PokeApiDataSource
 import com.itjuana.pokedex.data.repository.SearchPokemonRepository
-import com.itjuana.pokedex.data.remote.ApiUtils
 import com.itjuana.pokedex.ui.utils.Status
 
 class DiscoveryViewModel(private val searchPokemonRepository: SearchPokemonRepository) :

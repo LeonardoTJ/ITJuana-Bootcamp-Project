@@ -1,7 +1,6 @@
 package com.itjuana.pokedex.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +11,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.itjuana.pokedex.data.domain.model.Pokemon
+import com.itjuana.pokedex.data.remote.ApiUtils
 import com.itjuana.pokedex.databinding.FragmentSearchBinding
 import com.itjuana.pokedex.ui.utils.PokemonAdapter
 import com.itjuana.pokedex.ui.utils.PokemonListItemCallback
 import com.itjuana.pokedex.ui.utils.PokemonListUpdate
-import com.itjuana.pokedex.data.remote.ApiUtils
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -84,11 +83,6 @@ class SearchFragment : Fragment(), PokemonListItemCallback {
                 Toast.makeText(requireContext(), "No results", Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
     }
 
     override fun onClick(pokemon: Pokemon) {

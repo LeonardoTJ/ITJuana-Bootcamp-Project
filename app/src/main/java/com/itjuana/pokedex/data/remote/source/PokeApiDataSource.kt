@@ -1,11 +1,11 @@
 package com.itjuana.pokedex.data.remote.source
 
 import com.itjuana.pokedex.data.domain.model.Pokemon
+import com.itjuana.pokedex.data.remote.ApiUtils
 import com.itjuana.pokedex.data.remote.PokemonApi
 import com.itjuana.pokedex.data.remote.model.PokemonResponse
 import com.itjuana.pokedex.data.remote.model.Stat
 import com.itjuana.pokedex.data.repository.SearchPokemonRepository
-import com.itjuana.pokedex.data.remote.ApiUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
